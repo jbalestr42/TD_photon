@@ -33,7 +33,7 @@ public static class PlayerObjectRegistry {
     public static void DestroyClientPlayer(BoltConnection connection) {
         PlayerObject player = (PlayerObject)connection.UserData;
         players.Remove(player);
-        BoltNetwork.Destroy(player.character);
+        BoltNetwork.Destroy(player.character.gameObject);
     }
 
     // this simply returns the 'players' list cast to

@@ -13,16 +13,16 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerState> {
     bool _right;
     bool _jump;
 
-    float _yaw;
-    float _pitch;
-
     PlayerMotor _motor;
 
-    void Awake() {
-        _motor = GetComponent<PlayerMotor>();
+    void Start() {
+        if (entity.HasControl()) {
+            CameraManager.Instance.SetCameraMovement(new FollowCamera(gameObject.transform, new Vector3(0f, 5, -10)));
+        }
     }
 
     public override void Attached() {
+        _motor = GetComponent<PlayerMotor>();
         state.SetTransforms(state.Transform, transform);
     }
 
@@ -36,14 +36,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerState> {
         _left = Input.GetKey(KeyCode.A);
         _right = Input.GetKey(KeyCode.D);
         _jump = Input.GetKeyDown(KeyCode.Space);
-
-        if (mouse) {
-            _yaw += (Input.GetAxisRaw("Mouse X") * MOUSE_SENSITIVITY);
-            _yaw %= 360f;
-
-            _pitch += (-Input.GetAxisRaw("Mouse Y") * MOUSE_SENSITIVITY);
-            _pitch = Mathf.Clamp(_pitch, -85f, +85f);
-        }
     }
 
     public override void SimulateController() {
@@ -56,8 +48,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerState> {
         input.Left = _left;
         input.Right = _right;
         input.Jump = _jump;
-        input.Yaw = _yaw;
-        input.Pitch = _pitch;
 
         entity.QueueInput(input);
     }
@@ -70,7 +60,7 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerState> {
             _motor.SetState(cmd.Result.Position, cmd.Result.Velocity, cmd.Result.IsGrounded, cmd.Result.JumpFrames);
         } else {
             // apply movement (this runs on both server and client)
-            PlayerMotor.State motorState = _motor.Move(cmd.Input.Forward, cmd.Input.Backward, cmd.Input.Left, cmd.Input.Right, cmd.Input.Jump, cmd.Input.Yaw);
+            PlayerMotor.State motorState = _motor.Move(cmd.Input.Forward, cmd.Input.Backward, cmd.Input.Left, cmd.Input.Right, cmd.Input.Jump);
 
             // copy the motor state to the commands result (this gets sent back to the client)
             cmd.Result.Position = motorState.position;

@@ -29,7 +29,7 @@ public class WaveManager : Singleton<WaveManager> {
 
         var wait = new WaitForSeconds(wave._spawnRate);
         while (count != 0) {
-            var entity = BoltNetwork.Instantiate(BoltPrefabs.Enemy);
+            BoltNetwork.Instantiate(BoltPrefabs.Enemy);
             count--;
             yield return wait;
         }

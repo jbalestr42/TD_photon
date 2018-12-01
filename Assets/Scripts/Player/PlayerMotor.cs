@@ -112,7 +112,7 @@ public class PlayerMotor : MonoBehaviour
         _state.position = transform.localPosition;
     }
 
-    public State Move(bool forward, bool backward, bool left, bool right, bool jump, float yaw)
+    public State Move(bool forward, bool backward, bool left, bool right, bool jump)
     {
         var moving = false;
         var movingDir = Vector3.zero;
@@ -130,7 +130,7 @@ public class PlayerMotor : MonoBehaviour
         if (movingDir.x != 0 || movingDir.z != 0)
         {
             moving = true;
-            movingDir = Vector3.Normalize(Quaternion.Euler(0, yaw, 0) * movingDir);
+            movingDir = Vector3.Normalize(movingDir);
         }
 
         //
@@ -181,7 +181,9 @@ public class PlayerMotor : MonoBehaviour
         Move(_state.velocity);
 
         // set local rotation
-        transform.localRotation = Quaternion.Euler(0, yaw, 0);
+        if (movingDir != Vector3.zero) {
+            transform.forward = movingDir;
+        }
 
         // detect tunneling
         DetectTunneling();
