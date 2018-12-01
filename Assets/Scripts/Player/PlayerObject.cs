@@ -24,7 +24,7 @@ public class PlayerObject {
             }
         }
 
-        // teleport entity to a random spawn position
+        // TODO: Get spawn point from the current map
         character.transform.position = RandomPosition();
         behavior = character.GetComponent<PlayerBehavior>();
     }

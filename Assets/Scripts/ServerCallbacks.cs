@@ -19,6 +19,7 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
     }
 
     public override void Disconnected(BoltConnection connection) {
+        PlayerObjectRegistry.DestroyClientPlayer(connection);
         var log = LogEvent.Create();
         log.Message = string.Format("{0} disconnected", connection.RemoteEndPoint);
         log.Send();
@@ -45,7 +46,7 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
     }
 
     public override void OnEvent(IsReadyEvent evnt) {
-        PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady = evnt.IsReady;
+        PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady = !PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady;
 
         bool ready = true;
         foreach (var player in PlayerObjectRegistry.GetPlayers) {

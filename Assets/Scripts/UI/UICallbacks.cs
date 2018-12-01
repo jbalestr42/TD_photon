@@ -1,31 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
+// Contains the event when interacting with the UI
 public class UICallbacks : MonoBehaviour {
 
-    bool _isReady = false;
-
-    public void IsReady_OnClick(UnityEngine.UI.Button button) 
-    {
-        _isReady = !_isReady;
+    public void IsReady_OnClick(UnityEngine.UI.Button button) {
         var evnt = IsReadyEvent.Create();
-        evnt.IsReady = _isReady;
+        evnt.IsReady = true;
         evnt.Send();
-
-        if (_isReady) {
-            button.GetComponentInChildren<UnityEngine.UI.Text>().text = "Ready!";
-        } else {
-            button.GetComponentInChildren<UnityEngine.UI.Text>().text = "Not Ready!";
-        }
     }
 
     public void SetName(UnityEngine.UI.Text text) {
         var evnt = SetNameEvent.Create();
         evnt.Name = text.text;
         evnt.Send();
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 
     public void SetColor(UnityEngine.UI.Image image) {

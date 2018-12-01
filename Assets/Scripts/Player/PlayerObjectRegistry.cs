@@ -30,6 +30,12 @@ public static class PlayerObjectRegistry {
         return player;
     }
 
+    public static void DestroyClientPlayer(BoltConnection connection) {
+        PlayerObject player = (PlayerObject)connection.UserData;
+        players.Remove(player);
+        BoltNetwork.Destroy(player.character);
+    }
+
     // this simply returns the 'players' list cast to
     // an IEnumerable<T> so that we hide the ability
     // to modify the player list from the outside.

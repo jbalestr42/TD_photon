@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 223298226951368104}
   - component: {fileID: 114176957579244472}
   - component: {fileID: 114354012152376758}
-  - component: {fileID: 114210241561101392}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -108,8 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4996347951303502}
   - component: {fileID: 114134453675824480}
-  - component: {fileID: 114755903608249052}
-  - component: {fileID: 143915352594585072}
+  - component: {fileID: 114402838719251224}
+  - component: {fileID: 143186915130940340}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -348,17 +347,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114210241561101392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1623955278864586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7012e9b0b940a74295e3ac5277a22b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114354012152376758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,7 +363,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114755903608249052
+--- !u!114 &114402838719251224
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,19 +371,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1906707749200160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ef1b3edc909914d817958379e40c99, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cf65ba11adc826469597b6bc1245f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinWidth: 0.08
-  gravityForce: -9.81
-  jumpForce: 40
-  jumpTotalFrames: 30
-  movingSpeed: 4
-  maxVelocity: 32
-  drag: {x: 1, y: 0, z: 1}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  _speed: 2
 --- !u!114 &114771502251436826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,7 +421,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &143915352594585072
+--- !u!143 &143186915130940340
 CharacterController:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
