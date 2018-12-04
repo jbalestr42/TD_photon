@@ -6,38 +6,66 @@ using UnityEngine.EventSystems;
 public class InteractionManager : Singleton<InteractionManager> {
 
     AInteraction _interaction = null;
+    ISelectable _selectable = null;
     bool _isOver = false;
     Ray ray;
     RaycastHit hit;
 
     void Update() {
-        if (_interaction != null && !EventSystem.current.IsPointerOverGameObject()) {
-            int layerMask = 1 << _interaction.GetLayer();
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            if (_interaction != null) 
+            {
+                UpdateInteraction();
+            } 
+            else 
+            {
+                if (Input.GetMouseButtonDown(0)) {
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+                        var interactable = hit.collider.gameObject.GetComponentInParent<ISelectable>();
 
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
-                if (!_isOver) {
-                    _isOver = true;
-                    _interaction.OnMouseEnter(hit.point);
-                }
-                else {
-                    if (Input.GetMouseButtonDown(0)) {
-                        _interaction.OnMouseClick(hit.point);
+                        if (_selectable != interactable) {
+                            if (_selectable != null) {
+                                _selectable.UnSelect();
+                            }
+                            _selectable = interactable;
+                            _selectable.Select();
+                        }
                     }
-                    else {
-                        _interaction.OnMouseOver(hit.point);
+                }
+                if (Input.GetKeyDown(KeyCode.Escape)) {
+                    if (_selectable != null) {
+                        _selectable.UnSelect();
+                        _selectable = null;
                     }
                 }
             }
-            else if (_isOver) {
-                _isOver = false;
-                _interaction.OnMouseExit();
+        }
+    }
+
+    public void UpdateInteraction() {
+        int layerMask = 1 << _interaction.GetLayer();
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
+            if (!_isOver) {
+                _isOver = true;
+                _interaction.OnMouseEnter(hit.point);
+            } else {
+                if (Input.GetMouseButtonDown(0)) {
+                    _interaction.OnMouseClick(hit.point);
+                } else {
+                    _interaction.OnMouseOver(hit.point);
+                }
             }
+        } else if (_isOver) {
+            _isOver = false;
+            _interaction.OnMouseExit();
+        }
 
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                CancelInteraction();
-            }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            CancelInteraction();
         }
     }
 

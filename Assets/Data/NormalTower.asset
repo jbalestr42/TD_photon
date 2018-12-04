@@ -13,3 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameObject: {fileID: 1807122863401546, guid: 556a0e791f459fe4b90b5741a83e67d5,
     type: 2}
+  _damage: 10
+  _name: Normal Tower

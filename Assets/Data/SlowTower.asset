@@ -13,3 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameObject: {fileID: 1891132551913998, guid: 2ad34b038fbc0654c9ffe8161543a42a,
     type: 2}
+  _damage: 5
+  _name: SlowTower

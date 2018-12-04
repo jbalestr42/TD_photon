@@ -8,6 +8,9 @@ public class UIManager : Singleton<UIManager> {
     public UnityEngine.UI.InputField _inputFieldName;
     public List<UnityEngine.UI.Button> _chooseColor;
 
+    public UITower _uiTower;
+    public UIInventory _uiInventory;
+
     void Awake() {
         _isReadyButton.onClick.AddListener(IsReady_OnClick);
         _inputFieldName.onEndEdit.AddListener(SetName_OnEndEdit);
@@ -16,6 +19,18 @@ public class UIManager : Singleton<UIManager> {
             _chooseColor[i].onClick.AddListener(() => SetColor_OnClick(_chooseColor[index].GetComponent<UnityEngine.UI.Image>().color));
         }
     }
+
+    #region Accessor to other UI systems
+
+    public UITower GetUITower {
+        get { return _uiTower; }
+    }
+
+    public UIInventory GetUIInventory {
+        get { return _uiInventory; }
+    }
+
+    #endregion
 
     #region Public methods exposed to update the UI
 
@@ -37,10 +52,6 @@ public class UIManager : Singleton<UIManager> {
         var evnt = SetNameEvent.Create();
         evnt.Name = text;
         evnt.Send();
-    }
-
-    void okok(int i) {
-        Debug.Log(i);
     }
 
     void SetColor_OnClick(Color color) {

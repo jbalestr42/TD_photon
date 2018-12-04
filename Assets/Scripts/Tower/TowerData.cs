@@ -6,6 +6,8 @@ using UnityEditor;
 public class TowerData : ScriptableObject {
 
     public GameObject _gameObject;
+    public float _damage;
+    public string _name;
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/Tower Data")]

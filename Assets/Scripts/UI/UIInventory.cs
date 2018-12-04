@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : Singleton<InventoryManager> {
+public class UIInventory : MonoBehaviour {
 
     public List<TowerData> _towerData;
     public GameObject _inventoryConainer;
