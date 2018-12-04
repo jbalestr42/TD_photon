@@ -19,6 +19,10 @@ public class GridInteraction : AInteraction {
 
     public override void OnMouseClick(Vector3 position) {
         Debug.Log("Click");
+        var evnt = SpawnEvent.Create();
+        evnt.PrefabId = _tower.GetComponentInChildren<BoltEntity>().prefabId;
+        evnt.Position = position;
+        evnt.Send();
         InteractionManager.Instance.EndInteraction();
     }
 
@@ -44,6 +48,9 @@ public class GridInteraction : AInteraction {
     }
 
     public override void End() {
-        _tower = null;
+        if (_tower) {
+            GameObject.Destroy(_tower);
+            _tower = null;
+        }
     }
 }

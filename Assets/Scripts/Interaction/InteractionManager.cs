@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InteractionManager : Singleton<InteractionManager> {
 
@@ -10,7 +11,7 @@ public class InteractionManager : Singleton<InteractionManager> {
     RaycastHit hit;
 
     void Update() {
-        if (_interaction != null) {
+        if (_interaction != null && !EventSystem.current.IsPointerOverGameObject()) {
             int layerMask = 1 << _interaction.GetLayer();
 
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);

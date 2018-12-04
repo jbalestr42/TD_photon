@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 public static class ScriptableObjectUtility {
     public static void CreateAsset<T>() where T : ScriptableObject {
         T asset = ScriptableObject.CreateInstance<T>();
@@ -23,3 +24,4 @@ public static class ScriptableObjectUtility {
         Selection.activeObject = asset;
     }
 }
+#endif

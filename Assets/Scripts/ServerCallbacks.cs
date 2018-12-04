@@ -45,6 +45,18 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
         PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.Name = evnt.Name;
     }
 
+    public override void OnEvent(SpawnEvent evnt) {
+        var player = PlayerObjectRegistry.GetPlayer(evnt.RaisedBy);
+        var character = BoltNetwork.Instantiate(evnt.PrefabId);
+        character.transform.position = evnt.Position;
+
+        if (player.IsServer) {
+            character.TakeControl();
+        } else {
+            character.AssignControl(evnt.RaisedBy);
+        }
+    }
+
     public override void OnEvent(IsReadyEvent evnt) {
         PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady = !PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady;
 
