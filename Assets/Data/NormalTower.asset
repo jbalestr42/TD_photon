@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8673efcc341a42842a027d52ee3c2d10, type: 3}
+  m_Name: NormalTower
+  m_EditorClassIdentifier: 
+  _gameObject: {fileID: 1807122863401546, guid: 556a0e791f459fe4b90b5741a83e67d5,
+    type: 2}
