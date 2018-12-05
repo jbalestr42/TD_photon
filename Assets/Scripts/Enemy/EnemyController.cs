@@ -17,6 +17,9 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         transform.position = _start.position;
 
         state.SetTransforms(state.Transform, transform);
+        if (entity.IsOwner()) {
+            state.Health = 15;
+        }
     }
 
     void Update () {
@@ -28,7 +31,16 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (hit.gameObject.tag == "SpawnEnd") {
             if (entity != null) {
-                BoltNetwork.Destroy(entity.gameObject);
+                WaveManager.Instance.KillEnemy(entity.gameObject);
+            }
+        }
+    }
+
+    public void TakeDamage(float damage) {
+        if (entity.IsOwner()) {
+            state.Health -= damage;
+            if (state.Health <= 0) {
+                WaveManager.Instance.KillEnemy(entity.gameObject);
             }
         }
     }

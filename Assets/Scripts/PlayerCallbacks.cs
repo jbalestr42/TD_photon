@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-[BoltGlobalBehaviour]
+[BoltGlobalBehaviour(BoltNetworkModes.Client)]
 public class PlayerCallbacks : Bolt.GlobalEventListener {
 
-    public override void SceneLoadLocalDone(string map) {
+    public override void OnEvent(FireEvent evnt) {
+        EntityManager.Instance.CreateBullet(evnt.OwnerId, evnt.TargetId);
     }
 }
