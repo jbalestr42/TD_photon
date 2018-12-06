@@ -22,7 +22,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         }
     }
 
-    void Update () {
+    void Update() {
         var direction = _end.position - _start.position;
         direction.y += -9.81f;
         _cc.Move(direction.normalized * _speed * BoltNetwork.frameDeltaTime);
@@ -36,11 +36,14 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         }
     }
 
-    public void TakeDamage(float damage) {
+    public void TakeDamage(GameObject owner) {
         if (entity.IsOwner()) {
-            state.Health -= damage;
+            state.Health -= owner.GetComponent<TowerBehaviour>()._data._damage;
             if (state.Health <= 0) {
                 WaveManager.Instance.KillEnemy(entity.gameObject);
+                var player = PlayerObjectRegistry.GetPlayer(owner.GetComponent<TowerBehaviour>().entity.controller);
+                player.behavior.state.Score += 10;
+                player.behavior.state.Gold += 1;
             }
         }
     }

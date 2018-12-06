@@ -17,6 +17,8 @@ public class UIInventory : MonoBehaviour {
 	}
 
     public void SelectTower(TowerData data) {
-        InteractionManager.Instance.SetInteraction(new GridInteraction(data));
+        if (PlayerObjectRegistry.GetPlayer().state.Gold >= data._cost) {
+            InteractionManager.Instance.SetInteraction(new GridInteraction(data));
+        }
     }
 }

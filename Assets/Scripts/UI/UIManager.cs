@@ -7,6 +7,8 @@ public class UIManager : Singleton<UIManager> {
     public UnityEngine.UI.Button _isReadyButton;
     public UnityEngine.UI.InputField _inputFieldName;
     public List<UnityEngine.UI.Button> _chooseColor;
+    public UnityEngine.UI.Text _goldText;
+    public UnityEngine.UI.Text _scoreText;
 
     public UITower _uiTower;
     public UIInventory _uiInventory;
@@ -36,6 +38,14 @@ public class UIManager : Singleton<UIManager> {
 
     public void SetReadyButton(bool isReady) {
         _isReadyButton.GetComponentInChildren<UnityEngine.UI.Text>().text = isReady ? "Ready!" : "Not Ready!";
+    }
+
+    public void SetGold(int gold) {
+        _goldText.text = "Gold: " + gold.ToString();
+    }
+
+    public void SetScore(int score) {
+        _scoreText.text = "Score: " + score.ToString();
     }
 
     #endregion

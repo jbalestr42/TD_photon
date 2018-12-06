@@ -16,3 +16,4 @@ MonoBehaviour:
   _bullet: {fileID: 1949670587467892, guid: 56e4b5d40387f324ba8d3e1a35a510dc, type: 2}
   _damage: 10
   _name: Normal Tower
+  _cost: 50

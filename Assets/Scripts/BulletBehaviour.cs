@@ -35,7 +35,7 @@ public class BulletBehaviour : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         var enemy = other.gameObject.GetComponent<EnemyController>();
         if (enemy) {
-            enemy.TakeDamage(_owner.GetComponent<TowerBehaviour>()._data._damage);
+            enemy.TakeDamage(_owner);
             Destroy(gameObject);
         }
     }

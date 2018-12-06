@@ -14,24 +14,15 @@ public class TowerInteraction : AInteraction {
     }
 
     public override int GetLayer() {
-        return 8;
+        return Layers.Terrain;
     }
 
     public override void OnMouseClick(Vector3 position) {
-        Debug.Log("Click");
         var evnt = SpawnEvent.Create();
         evnt.PrefabId = _tower.GetComponentInChildren<BoltEntity>().prefabId;
         evnt.Position = position;
         evnt.Send();
         InteractionManager.Instance.EndInteraction();
-    }
-
-    public override void OnMouseEnter(Vector3 position) {
-        Debug.Log("enter");
-    }
-
-    public override void OnMouseExit() {
-        Debug.Log("exit");
     }
 
     public override void OnMouseOver(Vector3 position) {

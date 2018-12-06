@@ -47,13 +47,20 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
 
     public override void OnEvent(SpawnEvent evnt) {
         var player = PlayerObjectRegistry.GetPlayer(evnt.RaisedBy);
-        var character = BoltNetwork.Instantiate(evnt.PrefabId);
-        character.transform.position = evnt.Position;
+        var tower = BoltNetwork.Instantiate(evnt.PrefabId);
 
-        if (player.IsServer) {
-            character.TakeControl();
+        if (player.behavior.state.Gold >= tower.GetComponent<TowerBehaviour>()._data._cost)
+        {
+            player.behavior.state.Gold -= tower.GetComponent<TowerBehaviour>()._data._cost;
+            tower.transform.position = evnt.Position;
+
+            if (player.IsServer) {
+                tower.TakeControl();
+            } else {
+                tower.AssignControl(evnt.RaisedBy);
+            }
         } else {
-            character.AssignControl(evnt.RaisedBy);
+            BoltNetwork.Destroy(tower);
         }
     }
 

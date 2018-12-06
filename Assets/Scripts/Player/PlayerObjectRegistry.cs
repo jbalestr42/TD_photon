@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public static class PlayerObjectRegistry {
 
     // keeps a list of all the players
     static List<PlayerObject> players = new List<PlayerObject>();
+    static PlayerBehavior _controlledPlayer = null;
 
     // create a player for a connection
     // note: connection can be null
@@ -68,5 +70,14 @@ public static class PlayerObjectRegistry {
         }
 
         return (PlayerObject)connection.UserData;
+    }
+
+    // utility function to get the controlled player;
+    public static PlayerBehavior GetPlayer() {
+        var players = Object.FindObjectsOfType<PlayerBehavior>();
+        if (_controlledPlayer == null) {
+            _controlledPlayer = players.First(player => player.entity.hasControl);
+        }
+        return _controlledPlayer;
     }
 }

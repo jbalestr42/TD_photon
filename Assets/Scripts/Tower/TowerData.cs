@@ -9,6 +9,7 @@ public class TowerData : ScriptableObject {
     public GameObject _bullet;
     public float _damage;
     public string _name;
+    public int _cost;
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/Tower Data")]
