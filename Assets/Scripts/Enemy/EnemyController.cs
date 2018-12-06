@@ -9,6 +9,12 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
     public float _speed;
     CharacterController _cc;
 
+    private void Start() {
+        if (entity.IsOwner()) {
+            state.Health = 15;
+        }
+    }
+
     public override void Attached() {
         // TODO Spawn Manager
         _start = GameObject.FindWithTag("SpawnStart").transform;
@@ -17,20 +23,19 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         transform.position = _start.position;
 
         state.SetTransforms(state.Transform, transform);
-        if (entity.IsOwner()) {
-            state.Health = 15;
-        }
     }
 
     void Update() {
-        var direction = _end.position - _start.position;
-        direction.y += -9.81f;
-        _cc.Move(direction.normalized * _speed * BoltNetwork.frameDeltaTime);
+        if (entity.IsOwner()) {
+            var direction = _end.position - _start.position;
+            direction.y += -9.81f;
+            _cc.Move(direction.normalized * _speed * BoltNetwork.frameDeltaTime);
+        }
 	}
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.gameObject.tag == "SpawnEnd") {
-            if (entity != null) {
+        if (entity.IsOwner()) {
+            if (hit.gameObject.tag == "SpawnEnd") {
                 WaveManager.Instance.KillEnemy(entity.gameObject);
             }
         }
