@@ -13,7 +13,7 @@ public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
     PlayerUI _playerUI;
     Renderer _renderer;
 
-    private void Start() {
+    void Start() {
         if (entity.IsOwner()) {
             state.Gold = 100;
             state.Score = 0;

@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager> {
     public List<UnityEngine.UI.Button> _chooseColor;
     public UnityEngine.UI.Text _goldText;
     public UnityEngine.UI.Text _scoreText;
+    public UnityEngine.UI.Text _lifeText;
 
     public UITower _uiTower;
     public UIInventory _uiInventory;
@@ -46,6 +47,10 @@ public class UIManager : Singleton<UIManager> {
 
     public void SetScore(int score) {
         _scoreText.text = "Score: " + score.ToString();
+    }
+
+    public void SetLife(int life) {
+        _lifeText.text = "Life: " + life.ToString();
     }
 
     #endregion

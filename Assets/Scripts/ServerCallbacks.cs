@@ -27,6 +27,8 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
 
     public override void SceneLoadLocalDone(string map) {
         PlayerObjectRegistry.ServerPlayer.Spawn();
+        var game = BoltNetwork.Instantiate(BoltPrefabs.Game);
+        GameManager.Instance.Game = game.GetComponent<GameBehaviour>();
     }
 
     public override void SceneLoadRemoteDone(BoltConnection connection) {

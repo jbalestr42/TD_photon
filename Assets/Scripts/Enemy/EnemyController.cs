@@ -37,6 +37,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         if (entity.IsOwner()) {
             if (hit.gameObject.tag == "SpawnEnd") {
                 WaveManager.Instance.KillEnemy(entity.gameObject);
+                GameManager.Instance.LooseLife(1);
             }
         }
     }
