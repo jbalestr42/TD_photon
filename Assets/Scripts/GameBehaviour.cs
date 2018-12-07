@@ -10,6 +10,12 @@ public class GameBehaviour : Bolt.EntityBehaviour<IGameState> {
         }
     }
 
+    void Update() {
+        if (entity.IsOwner()) {
+            // TODO si la vague est terminer il faut changer le ready state
+        }
+    }
+
     public override void Attached() {
         state.AddCallback("Life", () => { UIManager.Instance.SetLife(state.Life); });
     }

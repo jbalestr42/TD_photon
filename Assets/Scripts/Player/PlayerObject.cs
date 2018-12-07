@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public class PlayerObject {
-    public BoltEntity character;
-    public BoltConnection connection;
-    public PlayerBehavior behavior;
+    public BoltEntity character = null;
+    public BoltConnection connection = null;
+    public PlayerBehavior behavior = null;
 
     public bool IsServer {
         get { return connection == null; }

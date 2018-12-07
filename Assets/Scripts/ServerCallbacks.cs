@@ -13,6 +13,8 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
     public override void Connected(BoltConnection connection) {
         PlayerObjectRegistry.CreateClientPlayer(connection);
 
+        GameManager.Instance.SetAllPlayerReadyState(false);
+
         var log = LogEvent.Create();
         log.Message = string.Format("{0} connected", connection.RemoteEndPoint);
         log.Send();
@@ -20,6 +22,9 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
 
     public override void Disconnected(BoltConnection connection) {
         PlayerObjectRegistry.DestroyClientPlayer(connection);
+
+        GameManager.Instance.SetAllPlayerReadyState(false);
+
         var log = LogEvent.Create();
         log.Message = string.Format("{0} disconnected", connection.RemoteEndPoint);
         log.Send();
@@ -69,13 +74,8 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
     public override void OnEvent(IsReadyEvent evnt) {
         PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady = !PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady;
 
-        bool ready = true;
-        foreach (var player in PlayerObjectRegistry.GetPlayers) {
-            ready = ready && player.behavior.state.IsReady;
-        }
-        if (ready) {
-            logMessages.Insert(0, "All players are ready!");
-            WaveManager.Instance.StartWave();
+        if (GameManager.Instance.CanStartGame()) {
+            GameManager.Instance.StartGame();
         }
     }
 

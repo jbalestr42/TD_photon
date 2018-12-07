@@ -18,6 +18,7 @@ public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
             state.Gold = 100;
             state.Score = 0;
             state.Color = Random.ColorHSV();
+            state.IsReady = false;
         }
     }
 
@@ -27,11 +28,11 @@ public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
 
         state.AddCallback("Color", () => { _renderer.material.color = state.Color; });
         state.AddCallback("Name", () => { _playerUI.SetPlayerName(state.Name); });
-        state.AddCallback("IsReady", () => { UIManager.Instance.SetReadyButton(state.IsReady); });
     }
 
     public override void ControlGained() {
         state.AddCallback("Gold", () => { UIManager.Instance.SetGold(state.Gold); });
         state.AddCallback("Score", () => { UIManager.Instance.SetScore(state.Score); });
+        state.AddCallback("IsReady", () => { UIManager.Instance.OnReadyStateChanged(state.IsReady); });
     }
 }

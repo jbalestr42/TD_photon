@@ -37,10 +37,6 @@ public class UIManager : Singleton<UIManager> {
 
     #region Public methods exposed to update the UI
 
-    public void SetReadyButton(bool isReady) {
-        _isReadyButton.GetComponentInChildren<UnityEngine.UI.Text>().text = isReady ? "Ready!" : "Not Ready!";
-    }
-
     public void SetGold(int gold) {
         _goldText.text = "Gold: " + gold.ToString();
     }
@@ -53,13 +49,16 @@ public class UIManager : Singleton<UIManager> {
         _lifeText.text = "Life: " + life.ToString();
     }
 
+    public void OnReadyStateChanged(bool ready) {
+        _isReadyButton.interactable = !ready;
+    }
+
     #endregion
 
     #region Private UI Listeners
 
     void IsReady_OnClick() {
         var evnt = IsReadyEvent.Create();
-        evnt.IsReady = true;
         evnt.Send();
     }
 
