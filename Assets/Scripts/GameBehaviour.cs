@@ -8,8 +8,9 @@ public class GameBehaviour : Bolt.EntityBehaviour<IGameState> {
         state.AddCallback("Life", () => { UIManager.Instance.SetLife(state.Life); });
     }
 
-    public int GetLife() {
-        return state.Life;
+    public int Life {
+        get { return state.Life; }
+        set { state.Life = value; }
     }
 
     public bool IsOwner() {

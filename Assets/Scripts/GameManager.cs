@@ -40,6 +40,7 @@ public class GameManager : Singleton<GameManager> {
         switch (_state) {
             case GameState.WaitingForPlayers:
                 if (CanStartGame()) {
+                    _game.Life = 10; // TODO: From game mode
                     StartGame();
                     _state = GameState.Spawning;
                 }
@@ -65,6 +66,8 @@ public class GameManager : Singleton<GameManager> {
                 _state = GameState.WaitingForPlayers;
                 break;
             case GameState.GameOver:
+                // Restart all, kill enemies, bullets, towers, reset score and gold
+                _state = GameState.GameEnd;
                 break;
             default:
                 Debug.Log("State not implemented: " + _state);
@@ -82,11 +85,10 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void LooseLife(int amount) {
-        _game.state.Life -= amount;
-    }
-
-    public bool IsGameLost() {
-        return _game.GetLife() <= 0;
+        _game.Life -= amount;
+        if (_game.Life <= 0) {
+            _state = GameState.GameOver;
+        }
     }
 
     public bool CanStartGame() {
