@@ -17,10 +17,10 @@ TagManager:
   - 
   - Terrain
   - Tower
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Bullet
+  - Enemy
+  - End
   - 
   - 
   - 

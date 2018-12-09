@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33536454353472834}
   - component: {fileID: 23173612489579518}
   - component: {fileID: 135222402927559360}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33182076502169520}
   - component: {fileID: 23646083457938156}
   - component: {fileID: 135885409872166962}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 223179843279887016}
   - component: {fileID: 114650314554741562}
   - component: {fileID: 114475270708383200}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 224805024495383314}
   - component: {fileID: 222199732103966516}
   - component: {fileID: 114323251590835474}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 33234981332537166}
   - component: {fileID: 23290051705629642}
   - component: {fileID: 65146296229653068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114037207385573086}
   - component: {fileID: 54591829274724354}
   - component: {fileID: 114888816547938688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SlowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}

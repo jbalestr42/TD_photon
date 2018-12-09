@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135934204135022098}
   - component: {fileID: 54739392911566740}
   - component: {fileID: 114855611850959786}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BulletSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

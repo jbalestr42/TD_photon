@@ -923,10 +923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73533b6471bab848a16b674560bdcf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemies: []
-  _towers: []
-  _bullets: []
-  _bullet: {fileID: 1985067714463758, guid: 56e4b5d40387f324ba8d3e1a35a510dc, type: 2}
 --- !u!4 &645146370
 Transform:
   m_ObjectHideFlags: 0
@@ -1210,7 +1206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 896723151}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: End
   m_TagString: SpawnEnd
   m_Icon: {fileID: 0}
@@ -2172,7 +2168,7 @@ GameObject:
   - component: {fileID: 1629216490}
   - component: {fileID: 1629216489}
   - component: {fileID: 1629216488}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: SpawnEnd
   m_Icon: {fileID: 0}

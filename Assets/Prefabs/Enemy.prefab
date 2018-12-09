@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4471632139451620}
   - component: {fileID: 33346637953360510}
   - component: {fileID: 23269284220137502}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mohawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224827325604136092}
   - component: {fileID: 222877815522484662}
   - component: {fileID: 114771502251436826}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 33871024361538478}
   - component: {fileID: 23729677350778402}
   - component: {fileID: 136491991312237088}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 223298226951368104}
   - component: {fileID: 114176957579244472}
   - component: {fileID: 114354012152376758}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4006984803045658}
   - component: {fileID: 33117578271010780}
   - component: {fileID: 23719303293856090}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 114134453675824480}
   - component: {fileID: 114402838719251224}
   - component: {fileID: 143186915130940340}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf65ba11adc826469597b6bc1245f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
 --- !u!114 &114771502251436826
 MonoBehaviour:
   m_ObjectHideFlags: 1

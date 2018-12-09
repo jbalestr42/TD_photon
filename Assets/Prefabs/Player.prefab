@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224345663165356778}
   - component: {fileID: 222494059549685132}
   - component: {fileID: 114741484461815886}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33842827706953080}
   - component: {fileID: 23851551189996982}
   - component: {fileID: 136220612381507876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 114324623145981006}
   - component: {fileID: 114809893066635636}
   - component: {fileID: 143790331569008662}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 4406817559848876}
   - component: {fileID: 33703139927267468}
   - component: {fileID: 23323052811914054}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 114036033802067852}
   - component: {fileID: 114389702861514962}
   - component: {fileID: 114667411115819828}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
