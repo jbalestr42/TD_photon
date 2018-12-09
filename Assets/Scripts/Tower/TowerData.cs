@@ -6,7 +6,7 @@ using UnityEditor;
 public class TowerData : ScriptableObject {
 
     public GameObject _gameObject;
-    public GameObject _bullet;
+    public BulletType _bulletId;
     public float _damage;
     public string _name;
     public int _cost;

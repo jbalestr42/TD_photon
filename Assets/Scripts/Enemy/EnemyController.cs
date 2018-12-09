@@ -37,7 +37,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (entity.IsOwner()) {
             if (hit.gameObject.tag == "SpawnEnd") {
-                EntityManager.Instance.KillEnemy(entity.gameObject);
+                EntityManager.Instance.DestroyEnemy(entity.gameObject);
                 GameManager.Instance.LooseLife(1);
             }
         }
@@ -47,7 +47,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         if (entity.IsOwner()) {
             state.Health -= owner.GetComponent<TowerBehaviour>()._data._damage;
             if (state.Health <= 0) {
-                EntityManager.Instance.KillEnemy(entity.gameObject);
+                EntityManager.Instance.DestroyEnemy(entity.gameObject);
                 var player = PlayerObjectRegistry.GetPlayer(owner.GetComponent<TowerBehaviour>().entity.controller);
                 player.behavior.state.Score += _data.score;
                 player.behavior.state.Gold += _data.gold;

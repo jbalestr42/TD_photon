@@ -9,10 +9,6 @@ public class BulletBehaviour : MonoBehaviour {
     GameObject _owner;
     GameObject _target;
 
-    void Start () {
-		
-	}
-	
 	void Update () {
 		if (_target) {
             var direction = _target.transform.position - transform.position;
@@ -36,7 +32,7 @@ public class BulletBehaviour : MonoBehaviour {
         var enemy = other.gameObject.GetComponent<EnemyController>();
         if (enemy) {
             enemy.TakeDamage(_owner);
-            Destroy(gameObject);
+            EntityManager.Instance.DestroyBullet(gameObject);
         }
     }
 }
