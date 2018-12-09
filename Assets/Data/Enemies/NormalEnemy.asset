@@ -14,6 +14,7 @@ MonoBehaviour:
   enemyId:
     Value: 1
   health: 50
-  speed: 10
+  speed: 4
   score: 10
   gold: 5
+  lifeCost: 1

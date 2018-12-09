@@ -13,7 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyId:
     Value: 1
-  health: 100
-  speed: 5
+  health: 200
+  speed: 2
   score: 15
-  gold: 5
+  gold: 10
+  lifeCost: 2

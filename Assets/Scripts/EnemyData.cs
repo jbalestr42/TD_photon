@@ -10,6 +10,7 @@ public class EnemyData : ScriptableObject {
     public float speed;
     public int score;
     public int gold;
+    public int lifeCost;
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/Enemy Data")]

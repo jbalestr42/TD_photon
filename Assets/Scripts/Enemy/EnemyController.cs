@@ -7,13 +7,9 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
     EnemyData _data;
     Transform _start;
     Transform _end;
-    public float _speed;
     CharacterController _cc;
 
-    private void Start() {
-        if (entity.IsOwner()) {
-            state.Health = 15;
-        }
+    void Start() {
     }
 
     public override void Attached() {
@@ -30,7 +26,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         if (entity.IsOwner()) {
             var direction = _end.position - _start.position;
             direction.y += -9.81f;
-            _cc.Move(direction.normalized * _speed * BoltNetwork.frameDeltaTime);
+            _cc.Move(direction.normalized * _data.speed * BoltNetwork.frameDeltaTime);
         }
 	}
 
@@ -38,7 +34,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         if (entity.IsOwner()) {
             if (hit.gameObject.tag == "SpawnEnd") {
                 EntityManager.Instance.DestroyEnemy(entity.gameObject);
-                GameManager.Instance.LooseLife(1);
+                GameManager.Instance.LooseLife(_data.lifeCost);
             }
         }
     }
