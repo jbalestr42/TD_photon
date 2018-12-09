@@ -73,10 +73,6 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
 
     public override void OnEvent(IsReadyEvent evnt) {
         PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady = !PlayerObjectRegistry.GetPlayer(evnt.RaisedBy).behavior.state.IsReady;
-
-        if (GameManager.Instance.CanStartGame()) {
-            GameManager.Instance.StartGame();
-        }
     }
 
     void OnGUI() {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
 
+    EnemyData _data;
     Transform _start;
     Transform _end;
     public float _speed;
@@ -36,7 +37,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (entity.IsOwner()) {
             if (hit.gameObject.tag == "SpawnEnd") {
-                WaveManager.Instance.KillEnemy(entity.gameObject);
+                EntityManager.Instance.KillEnemy(entity.gameObject);
                 GameManager.Instance.LooseLife(1);
             }
         }
@@ -46,11 +47,18 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
         if (entity.IsOwner()) {
             state.Health -= owner.GetComponent<TowerBehaviour>()._data._damage;
             if (state.Health <= 0) {
-                WaveManager.Instance.KillEnemy(entity.gameObject);
+                EntityManager.Instance.KillEnemy(entity.gameObject);
                 var player = PlayerObjectRegistry.GetPlayer(owner.GetComponent<TowerBehaviour>().entity.controller);
-                player.behavior.state.Score += 10;
-                player.behavior.state.Gold += 1;
+                player.behavior.state.Score += _data.score;
+                player.behavior.state.Gold += _data.gold;
             }
+        }
+    }
+
+    public void SetData(EnemyData data) {
+        _data = data;
+        if (entity.IsOwner()) {
+            state.Health = data.health;
         }
     }
 }

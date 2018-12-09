@@ -34,7 +34,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
     // TODO abstract strategy pour choisir le bon enemy (plus pret, plus de vie, plus proche de la fin, boss, etc...)
     GameObject GetNearestEnemy() {
-        var enemies = WaveManager.Instance.GetEnemies();
+        var enemies = EntityManager.Instance.GetEnemies();
 
         float min = Mathf.Infinity;
         GameObject nearest = null;
