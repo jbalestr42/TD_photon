@@ -2,33 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
+public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState> {
 
     EnemyData _data;
-    Transform _start;
-    Transform _end;
-    CharacterController _cc;
 
-    void Start() {
-    }
-
-    public override void Attached() {
-        // TODO Spawn Manager
-        _start = GameObject.FindWithTag("SpawnStart").transform;
-        _end = GameObject.FindWithTag("SpawnEnd").transform;
-        _cc = GetComponent<CharacterController>();
-        transform.position = _start.position;
-
-        state.SetTransforms(state.Transform, transform);
-    }
-
-    void Update() {
-        if (entity.IsOwner()) {
-            var direction = _end.position - _start.position;
-            direction.y += -9.81f;
-            _cc.Move(direction.normalized * _data.speed * BoltNetwork.frameDeltaTime);
+    void Start () {
+		if (entity.IsOwner()) {
+            var movement = gameObject.AddComponent<EnemyMovement>();
+            movement._speed = _data.speed;
         }
 	}
+
+    public override void Attached() {
+        state.SetTransforms(state.Transform, transform);
+    }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (entity.IsOwner()) {

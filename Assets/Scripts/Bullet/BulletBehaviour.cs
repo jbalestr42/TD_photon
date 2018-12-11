@@ -29,7 +29,7 @@ public class BulletBehaviour : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        var enemy = other.gameObject.GetComponent<EnemyController>();
+        var enemy = other.gameObject.GetComponent<EnemyBehaviour>();
         if (enemy) {
             enemy.TakeDamage(_owner);
             EntityManager.Instance.DestroyBullet(gameObject);

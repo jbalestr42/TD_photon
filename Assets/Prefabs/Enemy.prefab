@@ -107,8 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4996347951303502}
   - component: {fileID: 114134453675824480}
-  - component: {fileID: 114402838719251224}
   - component: {fileID: 143186915130940340}
+  - component: {fileID: 114314196354790460}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
@@ -347,6 +347,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114314196354790460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906707749200160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d7addef64566b4d937b3855064ed85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114354012152376758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,17 +374,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114402838719251224
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906707749200160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf65ba11adc826469597b6bc1245f66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114771502251436826
 MonoBehaviour:
   m_ObjectHideFlags: 1
