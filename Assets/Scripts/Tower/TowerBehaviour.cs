@@ -5,35 +5,26 @@ using UnityEngine;
 public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
     public TowerData _data;
-    float _timer = 0f;
-    float _fireRate = 1f;
 
-    void Start () {
+    void Start() {
+        if (entity.IsOwner()) {
+            // TODO: Init all attribute from data
+            AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
+            attributeManager.AddAttribute(AttributeType.Damage, new BasicAttribute(80, 0, 1000));
+            attributeManager.AddAttribute(AttributeType.AttackRate, new BasicAttribute(_data.attackRate, 0, 10));
+            attributeManager.AddAttribute(AttributeType.Range, new BasicAttribute(_data.damage, 0, 1000));
 
+            ShotProjectile shotProjectile = gameObject.AddComponent<ShotProjectile>();
+            shotProjectile.BulletId = _data.bulletId;
+        }
     }
 
     public override void Attached() {
         state.SetTransforms(state.Transform, transform);
     }
 
-    void Update() {
-        if (entity.IsOwner()) {
-            GameObject target = GetNearestEnemy();
-
-            if (target) {
-                _timer -= BoltNetwork.frameDeltaTime;
-                if (_timer <= 0f) {
-                    _timer += _fireRate;
-                    Shoot(target);
-                }
-            } else {
-                _timer = 0f;
-            }
-        }
-    }
-
     // TODO abstract strategy pour choisir le bon enemy (plus pret, plus de vie, plus proche de la fin, boss, etc...)
-    GameObject GetNearestEnemy() {
+    public GameObject GetNearestEnemy() {
         var enemies = EntityManager.Instance.GetEnemies();
 
         float min = Mathf.Infinity;

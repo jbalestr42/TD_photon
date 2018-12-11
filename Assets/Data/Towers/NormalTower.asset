@@ -17,5 +17,6 @@ MonoBehaviour:
     Value: 5
   bulletId: 1
   damage: 10
+  attackRate: 0.5
   name: bla
   cost: 10

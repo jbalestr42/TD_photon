@@ -1,0 +1,3 @@
+[submodule "Assets/CharacterSystem"]
+	path = Assets/CharacterSystem
+	url = https://github.com/jbalestr42/CharacterSystem.git
