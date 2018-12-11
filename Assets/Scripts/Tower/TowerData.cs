@@ -5,11 +5,12 @@ using UnityEditor;
 
 public class TowerData : ScriptableObject {
 
-    public GameObject _gameObject;
-    public BulletType _bulletId;
-    public float _damage;
-    public string _name;
-    public int _cost;
+    public GameObject localVisualisation;
+    public Bolt.PrefabId towerId;
+    public BulletType bulletId;
+    public float damage;
+    public string name;
+    public int cost;
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/Tower Data")]

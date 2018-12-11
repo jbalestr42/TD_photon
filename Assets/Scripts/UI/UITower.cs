@@ -21,8 +21,8 @@ public class UITower : MonoBehaviour {
         } else {
             _upgradeButton.gameObject.SetActive(false);
         }
-        _nameText.text = tower._data._name;
-        _damageText.text = tower._data._damage.ToString();
+        _nameText.text = tower._data.name;
+        _damageText.text = tower._data.damage.ToString();
     }
 
     public void HideUI() {

@@ -31,8 +31,13 @@ public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
     }
 
     public override void ControlGained() {
-        state.AddCallback("Gold", () => { UIManager.Instance.SetGold(state.Gold); });
+        state.AddCallback("Gold", () => { UpdateGold(state.Gold); });
         state.AddCallback("Score", () => { UIManager.Instance.SetScore(state.Score); });
         state.AddCallback("IsReady", () => { UIManager.Instance.OnReadyStateChanged(state.IsReady); });
+    }
+
+    void UpdateGold(int gold) {
+        UIManager.Instance.SetGold(state.Gold);
+        UIManager.Instance.GetUIInventory.UpdateAffordableTowers(state.Gold);
     }
 }

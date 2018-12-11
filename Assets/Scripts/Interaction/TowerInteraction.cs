@@ -10,7 +10,7 @@ public class TowerInteraction : AInteraction {
     public TowerInteraction(TowerData data) {
         Debug.Log("Spawn");
         _data = data;
-        _tower = GameObject.Instantiate(_data._gameObject);
+        _tower = GameObject.Instantiate(_data.localVisualisation);
     }
 
     public override int GetLayer() {

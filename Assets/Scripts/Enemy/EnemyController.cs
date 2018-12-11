@@ -41,7 +41,7 @@ public class EnemyController : Bolt.EntityBehaviour<IEnemyState> {
 
     public void TakeDamage(GameObject owner) {
         if (entity.IsOwner()) {
-            state.Health -= owner.GetComponent<TowerBehaviour>()._data._damage;
+            state.Health -= owner.GetComponent<TowerBehaviour>()._data.damage;
             if (state.Health <= 0) {
                 EntityManager.Instance.DestroyEnemy(entity.gameObject);
                 var player = PlayerObjectRegistry.GetPlayer(owner.GetComponent<TowerBehaviour>().entity.controller);

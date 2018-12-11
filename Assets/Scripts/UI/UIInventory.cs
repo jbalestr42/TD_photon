@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour {
 
-    public List<TowerData> _towerData;
-    public GameObject _inventoryConainer;
-    public GameObject _inventoryTower;
+    [SerializeField]
+    GameObject _inventoryConainer;
+
+    [SerializeField]
+    GameObject _inventoryTower;
+
+    List<SelectTowerButton> _towerButtons;
 
 	void Start () {
-		foreach (var data in _towerData) {
-            var tower = Instantiate(_inventoryTower);
-            tower.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { SelectTower(data); });
-            tower.transform.SetParent(_inventoryConainer.transform);
+        _towerButtons = new List<SelectTowerButton>();
+        var towersData = DataManager.Instance._towers;
+		foreach (var data in towersData) {
+            var towerButton = Instantiate(_inventoryTower);
+            towerButton.GetComponent<SelectTowerButton>().Data = data;
+            towerButton.transform.SetParent(_inventoryConainer.transform);
+            _towerButtons.Add(towerButton.GetComponent<SelectTowerButton>());
         }
 	}
 
-    public void SelectTower(TowerData data) {
-        if (PlayerObjectRegistry.GetPlayer().state.Gold >= data._cost) {
-            InteractionManager.Instance.SetInteraction(new GridInteraction(data));
+    public void UpdateAffordableTowers(int gold) {
+        for (int i = 0; i < _towerButtons.Count; i++) {
+            _towerButtons[i].GetComponent<UnityEngine.UI.Button>().interactable = _towerButtons[i].Data.cost <= gold;
         }
     }
 }

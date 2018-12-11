@@ -79,27 +79,34 @@ public class EntityManager : Singleton<EntityManager> {
     #region Towers
 
     public GameObject SpawnTower(Bolt.PrefabId towerId, PlayerObject player, Vector3 position) {
-        var tower = BoltNetwork.Instantiate(towerId);
 
-        if (player.behavior.state.Gold >= tower.GetComponent<TowerBehaviour>()._data._cost) {
-            player.behavior.state.Gold -= tower.GetComponent<TowerBehaviour>()._data._cost;
+        int cost = DataManager.Instance.GetTowerCost(towerId);
+        if (player.behavior.state.Gold >= cost) {
+            var tower = BoltNetwork.Instantiate(towerId);
+            player.behavior.state.Gold -= cost;
             tower.transform.position = position;
-
-            if (player.IsServer) {
-                tower.TakeControl();
-            } else {
-                tower.AssignControl(player.connection);
-            }
-        } else {
-            BoltNetwork.Destroy(tower);
+            SetControl(player, tower);
+            _towers.Add(tower);
+            return tower;
         }
-        _towers.Add(tower);
-        return tower;
+        return null;
     }
 
     public void DestroyTower(GameObject tower) {
         _towers.Remove(tower);
         BoltNetwork.Destroy(tower);
+    }
+
+    #endregion
+
+    #region Private Utils
+
+    void SetControl(PlayerObject player, BoltEntity entity) {
+        if (player.IsServer) {
+            entity.TakeControl();
+        } else {
+            entity.AssignControl(player.connection);
+        }
     }
 
     #endregion

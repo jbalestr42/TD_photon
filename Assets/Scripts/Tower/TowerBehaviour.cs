@@ -49,7 +49,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
     }
 
     void Shoot(GameObject target) {
-        EntityManager.Instance.SpawnBullet(_data._bulletId, entity.networkId, target.GetComponent<EnemyController>().entity.networkId, true);
+        EntityManager.Instance.SpawnBullet(_data.bulletId, entity.networkId, target.GetComponent<EnemyController>().entity.networkId, true);
     }
 
     public void Select() {

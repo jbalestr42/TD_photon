@@ -9,7 +9,7 @@ public class GridInteraction : AInteraction {
 
     public GridInteraction(TowerData data) {
         _data = data;
-        _tower = GameObject.Instantiate(_data._gameObject);
+        _tower = GameObject.Instantiate(_data.localVisualisation);
     }
 
     public override int GetLayer() {
