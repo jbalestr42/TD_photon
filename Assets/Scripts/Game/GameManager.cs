@@ -62,6 +62,7 @@ public class GameManager : Singleton<GameManager> {
                 }
                 break;
             case GameState.GameEnd:
+                SetAllPlayerReadyState(false);
                 _currentWave = 0; //TODO: proper end, for now it's a restart
                 _state = GameState.WaitingForPlayers;
                 break;

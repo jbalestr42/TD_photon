@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState> {
+public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     EnemyData _data;
 
     void Start () {
 		if (entity.IsOwner()) {
             var movement = gameObject.AddComponent<EnemyMovement>();
-            movement._speed = _data.speed;
+            movement.SetSpeed(_data.speed);
         }
 	}
 
@@ -26,16 +26,26 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState> {
         }
     }
 
-    public void TakeDamage(GameObject owner) {
+    public void ApplyEffect(GameObject emitter) {
         if (entity.IsOwner()) {
-            state.Health -= owner.GetComponent<TowerBehaviour>()._data.damage;
+            state.Health -= emitter.GetComponent<TowerBehaviour>()._data.damage;
             if (state.Health <= 0) {
-                EntityManager.Instance.DestroyEnemy(entity.gameObject);
-                var player = PlayerObjectRegistry.GetPlayer(owner.GetComponent<TowerBehaviour>().entity.controller);
-                player.behavior.state.Score += _data.score;
-                player.behavior.state.Gold += _data.gold;
+                Die(emitter);
+            }
+
+            // TODO Get from emitter
+            var movement = GetComponent<EnemyMovement>();
+            if (movement != null) {
+                movement.Speed.AddRelativeModifier(new SKU.TimeModifier(2f, -0.8f));
             }
         }
+    }
+
+    public void Die(GameObject killer) {
+        EntityManager.Instance.DestroyEnemy(entity.gameObject);
+        var player = PlayerObjectRegistry.GetPlayer(killer.GetComponent<TowerBehaviour>().entity.controller);
+        player.behavior.state.Score += _data.score;
+        player.behavior.state.Gold += _data.gold;
     }
 
     public void SetData(EnemyData data) {
