@@ -19,13 +19,12 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void Update() {
-        _speed.Update();
         var direction = _end.position - _start.position;
         direction.y += -9.81f;
         _cc.Move(direction.normalized * _speed.Value * BoltNetwork.frameDeltaTime);
 	}
 
-    public void SetSpeed(float speed) {
+    public void Init(float speed) {
         _speed = new SKU.Attribute(speed);
     }
 

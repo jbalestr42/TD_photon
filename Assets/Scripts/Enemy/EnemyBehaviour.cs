@@ -2,16 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Init order:
+ * Init_Server
+ * Start
+ * */
 public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
+    UIEnemy _enemyUI;
     EnemyData _data;
+    SKU.ResourceAttribute _health = null;
 
-    void Start () {
-		if (entity.IsOwner()) {
+    void Start() {
+        _enemyUI = GetComponentInChildren<UIEnemy>();
+        state.AddCallback("Health", UpdateHealth);
+    }
+
+    public void Init_Server(EnemyData data) {
+        if (entity.IsOwner()) {
+            _data = data;
+            state.Health = data.health;
+            _health = new SKU.ResourceAttribute(_data.health, _data.health, 5, 0.5f);
+            _health.AddOnValueChangedListener(UpdateHealth_Server);
+
             var movement = gameObject.AddComponent<EnemyMovement>();
-            movement.SetSpeed(_data.speed);
+            movement.Init(_data.speed);
         }
-	}
+    }
+
+    void Update() {
+        if (entity.IsOwner() && _health != null)
+            _health.Update();
+    }
+
+    void UpdateHealth_Server(SKU.ResourceAttribute attribute) {
+        state.Health = attribute.Current;
+        state.HealthMax = attribute.Max.Value;
+    }
+
+    void UpdateHealth() {
+        _enemyUI.SetHealthBar(state.Health / state.HealthMax);
+    }
 
     public override void Attached() {
         state.SetTransforms(state.Transform, transform);
@@ -28,8 +59,8 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     public void ApplyEffect(GameObject emitter) {
         if (entity.IsOwner()) {
-            state.Health -= emitter.GetComponent<TowerBehaviour>()._data.damage;
-            if (state.Health <= 0) {
+            _health.Remove(emitter.GetComponent<TowerBehaviour>()._data.damage);
+            if (_health.Current <= 0) {
                 Die(emitter);
             }
 
@@ -46,12 +77,5 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
         var player = PlayerObjectRegistry.GetPlayer(killer.GetComponent<TowerBehaviour>().entity.controller);
         player.behavior.state.Score += _data.score;
         player.behavior.state.Gold += _data.gold;
-    }
-
-    public void SetData(EnemyData data) {
-        _data = data;
-        if (entity.IsOwner()) {
-            state.Health = data.health;
-        }
     }
 }

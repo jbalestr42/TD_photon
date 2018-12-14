@@ -23,7 +23,7 @@ public class EntityManager : Singleton<EntityManager> {
 
     public GameObject SpawnEnemy(EnemyData data) {
         var enemy = BoltNetwork.Instantiate(data.enemyId);
-        enemy.GetComponent<EnemyBehaviour>().SetData(data);
+        enemy.GetComponent<EnemyBehaviour>().Init_Server(data);
 
         _enemies.Add(enemy);
         return enemy;

@@ -6,7 +6,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
     public TowerData _data;
     float _timer = 0f;
-    float _fireRate = 7f;
+    float _fireRate = 2f;
 
     void Start () {
 
