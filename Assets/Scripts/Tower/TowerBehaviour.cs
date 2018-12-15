@@ -69,7 +69,15 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
     public void ApplyOnHitEffect(GameObject target) {
         var attributes = target.GetComponent<AttributeManager>();
         attributes.Get<SKU.ResourceAttribute>(StatType.Health).Remove(_damage.Value);
-        attributes.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(Factory.CreateModifier(ModifierType.Time, 2f, -0.8f));
+
+        // TODO: clean data for modifiers
+        if (_data.modifiers != null) {
+            for (int i = 0; i < _data.modifiers.Count; i++) {
+                if (_data.modifiers[i] == ModifierType.Time) {
+                    attributes.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(Factory.CreateModifier(ModifierType.Time, 2f, -0.8f));
+                }
+            }
+        }
     }
 
     #endregion

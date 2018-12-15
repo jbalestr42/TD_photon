@@ -13,6 +13,7 @@ public class TowerData : ScriptableObject {
     public float range;
     public string name;
     public int cost;
+    public List<ModifierType> modifiers = null;
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/Tower Data")]

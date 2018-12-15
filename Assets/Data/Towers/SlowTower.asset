@@ -21,3 +21,4 @@ MonoBehaviour:
   range: 500
   name: slow bla
   cost: 25
+  modifiers: 00000000
