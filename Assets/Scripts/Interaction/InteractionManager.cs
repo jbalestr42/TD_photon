@@ -27,6 +27,7 @@ public class InteractionManager : Singleton<InteractionManager> {
                         if (_selectable != interactable) {
                             if (_selectable != null) {
                                 _selectable.UnSelect();
+                                _selectable = null;
                             }
                             _selectable = interactable;
                             if (_selectable != null) {
