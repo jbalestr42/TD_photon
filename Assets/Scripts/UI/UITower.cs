@@ -28,6 +28,7 @@ public class UITower : MonoBehaviour {
             }
             //_nameText.text = tower._data.name;
             _damageText.text = tower.state.Damage.ToString();
+            _rangeText.text = tower.state.Range.ToString();
             _speedText.text = tower.state.AttackRate.ToString();
         }
     }

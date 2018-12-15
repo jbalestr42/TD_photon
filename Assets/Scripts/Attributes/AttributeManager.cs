@@ -6,7 +6,8 @@ public enum StatType {
     Health = 0,
     Speed,
     AttackRate,
-    Damage
+    Damage,
+    Range
 }
 
 public class AttributeManager : MonoBehaviour {

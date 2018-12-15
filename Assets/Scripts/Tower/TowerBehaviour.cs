@@ -11,10 +11,12 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
     AttributeManager _attributeManager;
     SKU.Attribute _attackRate;
     SKU.Attribute _damage;
+    SKU.Attribute _range;
 
     void Start() {
         state.AddCallback("AttackRate", UpdateStat);
         state.AddCallback("Damage", UpdateStat);
+        state.AddCallback("Range", UpdateStat);
     }
 
     #region Server Methods
@@ -23,16 +25,20 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
         if (entity.IsOwner()) {
             _attackRate = new SKU.Attribute();
             _damage = new SKU.Attribute();
+            _range = new SKU.Attribute();
 
             _attackRate.AddOnValueChangedListener(UpdateAttackRate_Server);
             _damage.AddOnValueChangedListener(UpdateDamage_Server);
+            _range.AddOnValueChangedListener(UpdateRange_Server);
 
             _attributeManager = gameObject.AddComponent<AttributeManager>();
             _attributeManager.Add(StatType.AttackRate, _attackRate);
             _attributeManager.Add(StatType.Damage, _damage);
+            _attributeManager.Add(StatType.Range, _range);
 
             _attackRate.BaseValue = _data.attackRate;
             _damage.BaseValue = _data.damage;
+            _range.BaseValue = _data.range;
         }
     }
 
@@ -42,6 +48,10 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
     void UpdateDamage_Server(SKU.Attribute attribute) {
         state.Damage = attribute.Value;
+    }
+
+    void UpdateRange_Server(SKU.Attribute attribute) {
+        state.Range = attribute.Value;
     }
 
     #endregion
@@ -79,7 +89,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
         GameObject nearest = null;
         for (int i = 0; i < enemies.Count; i++) {
             float dist = Vector3.Distance(enemies[i].transform.position, gameObject.transform.position);
-            if (dist < min) {
+            if (dist < _range.Value && dist < min) {
                 min = dist;
                 nearest = enemies[i];
             }

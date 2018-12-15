@@ -18,5 +18,6 @@ MonoBehaviour:
   bulletId: 1
   damage: 10
   attackRate: 3
+  range: 1000
   name: bla
   cost: 10

@@ -18,5 +18,6 @@ MonoBehaviour:
   bulletId: 0
   damage: 15
   attackRate: 5
+  range: 500
   name: slow bla
   cost: 25

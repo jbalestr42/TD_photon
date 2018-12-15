@@ -10,6 +10,7 @@ public class TowerData : ScriptableObject {
     public BulletType bulletId;
     public float damage;
     public float attackRate;
+    public float range;
     public string name;
     public int cost;
 
