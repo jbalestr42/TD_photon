@@ -24,11 +24,8 @@ public class EnemyMovement : MonoBehaviour {
         _cc.Move(direction.normalized * _speed.Value * BoltNetwork.frameDeltaTime);
 	}
 
-    public void Init(float speed) {
+    public void Init_Server(float speed) {
         _speed = new SKU.Attribute(speed);
-    }
-
-    public SKU.Attribute Speed {
-        get { return _speed; }
+        GetComponent<AttributeManager>().Add(StatType.Speed, _speed);
     }
 }

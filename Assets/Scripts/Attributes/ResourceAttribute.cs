@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SKU {
 
-    public class ResourceAttribute {
+    public class ResourceAttribute : IAttribute {
 
         public delegate void OnValueChanged(ResourceAttribute attribute);
         event OnValueChanged _onValueChanged;
@@ -18,7 +18,6 @@ namespace SKU {
         public ResourceAttribute(float value, float max) {
             _value = value;
             _max = new SKU.Attribute(max);
-            _max.Update();
 
             _modifiers = new List<SKU.IAttributeModifier>();
             _max.AddOnValueChangedListener(OnCurrentOrMaxValueChanged);
@@ -46,7 +45,7 @@ namespace SKU {
             _prevValue = _value;
         }
 
-        public float Current {
+        public float Value {
             get { return _value; }
         }
 

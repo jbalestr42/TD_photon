@@ -12,33 +12,36 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
     UIEnemy _enemyUI;
     EnemyData _data;
     SKU.ResourceAttribute _health = null;
+    AttributeManager _attributeManager;
 
     void Start() {
         _enemyUI = GetComponentInChildren<UIEnemy>();
         state.AddCallback("Health", UpdateHealth);
     }
 
+    #region Server Methods
+
     public void Init_Server(EnemyData data) {
         if (entity.IsOwner()) {
             _data = data;
             state.Health = data.health;
-            _health = new SKU.ResourceAttribute(_data.health, _data.health, 5, 0.5f);
+            _health = new SKU.ResourceAttribute(_data.health, _data.health, 1, 0.5f);
             _health.AddOnValueChangedListener(UpdateHealth_Server);
 
+            _attributeManager = gameObject.AddComponent<AttributeManager>();
+            _attributeManager.Add(StatType.Health, _health);
+
             var movement = gameObject.AddComponent<EnemyMovement>();
-            movement.Init(_data.speed);
+            movement.Init_Server(_data.speed);
         }
     }
 
-    void Update() {
-        if (entity.IsOwner() && _health != null)
-            _health.Update();
-    }
-
     void UpdateHealth_Server(SKU.ResourceAttribute attribute) {
-        state.Health = attribute.Current;
+        state.Health = attribute.Value;
         state.HealthMax = attribute.Max.Value;
     }
+
+    #endregion
 
     void UpdateHealth() {
         _enemyUI.SetHealthBar(state.Health / state.HealthMax);
@@ -60,14 +63,14 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
     public void ApplyEffect(GameObject emitter) {
         if (entity.IsOwner()) {
             _health.Remove(emitter.GetComponent<TowerBehaviour>()._data.damage);
-            if (_health.Current <= 0) {
+            if (_health.Value <= 0) {
                 Die(emitter);
             }
 
             // TODO Get from emitter
             var movement = GetComponent<EnemyMovement>();
             if (movement != null) {
-                movement.Speed.AddRelativeModifier(new SKU.TimeModifier(2f, -0.8f));
+                _attributeManager.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(new TimeModifier(2f, -0.8f));
             }
         }
     }
