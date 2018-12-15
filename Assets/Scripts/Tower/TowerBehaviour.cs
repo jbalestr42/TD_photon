@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
+public interface IAttacker {
+    void ApplyOnHitEffect(GameObject target);
+}
+
+public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IAttacker {
 
     [SerializeField]
     TowerData _data;
@@ -60,6 +64,12 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
     void UpdateRange_Server(SKU.Attribute attribute) {
         state.Range = attribute.Value;
+    }
+
+    public void ApplyOnHitEffect(GameObject target) {
+        var attributes = target.GetComponent<AttributeManager>();
+        attributes.Get<SKU.ResourceAttribute>(StatType.Health).Remove(_damage.Value);
+        attributes.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(new TimeModifier(2f, -0.8f));
     }
 
     #endregion

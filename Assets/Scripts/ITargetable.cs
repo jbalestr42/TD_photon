@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ITargetable {
-    void ApplyEffect(GameObject emitter);
+    void OnHit(GameObject emitter);
 }

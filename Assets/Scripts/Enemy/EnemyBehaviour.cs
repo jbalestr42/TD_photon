@@ -60,17 +60,16 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
         }
     }
 
-    public void ApplyEffect(GameObject emitter) {
+    public void OnHit(GameObject emitter) {
         if (entity.IsOwner()) {
-            _health.Remove(emitter.GetComponent<AttributeManager>().GetValue(StatType.Damage));
-            if (_health.Value <= 0) {
-                Die(emitter);
+
+            var attacker = emitter.GetComponent<IAttacker>();
+            if (attacker != null) {
+                attacker.ApplyOnHitEffect(gameObject);
             }
 
-            // TODO Get from emitter
-            var movement = GetComponent<EnemyMovement>();
-            if (movement != null) {
-                _attributeManager.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(new TimeModifier(2f, -0.8f));
+            if (_health.Value <= 0) {
+                Die(emitter);
             }
         }
     }

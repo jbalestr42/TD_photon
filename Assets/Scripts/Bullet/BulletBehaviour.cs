@@ -31,7 +31,7 @@ public class BulletBehaviour : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         var target = other.gameObject.GetComponent<ITargetable>();
         if (target != null) {
-            target.ApplyEffect(_owner);
+            target.OnHit(_owner);
             EntityManager.Instance.DestroyBullet(gameObject);
         }
     }
