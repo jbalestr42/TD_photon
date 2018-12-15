@@ -43,12 +43,12 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     #endregion
 
-    void UpdateHealth() {
-        _enemyUI.SetHealthBar(state.Health / state.HealthMax);
-    }
-
     public override void Attached() {
         state.SetTransforms(state.Transform, transform);
+    }
+
+    void UpdateHealth() {
+        _enemyUI.SetHealthBar(state.Health / state.HealthMax);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
@@ -62,7 +62,7 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     public void ApplyEffect(GameObject emitter) {
         if (entity.IsOwner()) {
-            _health.Remove(emitter.GetComponent<TowerBehaviour>()._data.damage);
+            _health.Remove(emitter.GetComponent<AttributeManager>().GetValue(StatType.Damage));
             if (_health.Value <= 0) {
                 Die(emitter);
             }

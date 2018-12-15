@@ -15,6 +15,9 @@ namespace SKU {
         List<IAttributeModifier> _relativeModifiers;
         List<IAttributeModifier> _absoluteModifiers;
 
+        public Attribute()
+            : this(0f) { }
+
         public Attribute(float value) {
             _prevValue = _value;
             _baseValue = value;
@@ -59,6 +62,11 @@ namespace SKU {
 
         public float Value {
             get { return _value; }
+        }
+
+        public float BaseValue {
+            get { return _baseValue; }
+            set { _baseValue = value; }
         }
 
         public void AddOnValueChangedListener(OnValueChanged onValueChanged) {

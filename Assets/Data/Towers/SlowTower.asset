@@ -11,11 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8673efcc341a42842a027d52ee3c2d10, type: 3}
   m_Name: SlowTower
   m_EditorClassIdentifier: 
-  localVisualisation: {fileID: 1891132551913998, guid: 2ad34b038fbc0654c9ffe8161543a42a,
+  localVisualisation: {fileID: 1807122863401546, guid: c120243918f80174a82bccabf5dd8d39,
     type: 2}
   towerId:
     Value: 4
   bulletId: 0
   damage: 15
+  attackRate: 5
   name: slow bla
   cost: 25

@@ -18,7 +18,7 @@ public class GridInteraction : AInteraction {
 
     public override void OnMouseClick(Vector3 position) {
         var evnt = SpawnEvent.Create();
-        evnt.PrefabId = _tower.GetComponentInChildren<BoltEntity>().prefabId;
+        evnt.PrefabId = _data.towerId;
         evnt.Position = position;
         evnt.Send();
         InteractionManager.Instance.EndInteraction();

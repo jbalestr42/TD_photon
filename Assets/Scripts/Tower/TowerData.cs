@@ -9,6 +9,7 @@ public class TowerData : ScriptableObject {
     public Bolt.PrefabId towerId;
     public BulletType bulletId;
     public float damage;
+    public float attackRate;
     public string name;
     public int cost;
 

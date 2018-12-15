@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum StatType {
     Health = 0,
-    Speed
+    Speed,
+    AttackRate,
+    Damage
 }
 
 public class AttributeManager : MonoBehaviour {
@@ -16,8 +18,8 @@ public class AttributeManager : MonoBehaviour {
     }
 	
 	void Update () {
-        for (int i = 0; i < _attributes.Count; i++) {
-            _attributes[(StatType)i].Update();
+        foreach (var attribute in _attributes) {
+            attribute.Value.Update();
         }
 	}
 

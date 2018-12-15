@@ -4,18 +4,57 @@ using UnityEngine;
 
 public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
 
-    public TowerData _data;
+    [SerializeField]
+    TowerData _data;
     float _timer = 0f;
-    float _fireRate = 2f;
 
-    void Start () {
+    AttributeManager _attributeManager;
+    SKU.Attribute _attackRate;
+    SKU.Attribute _damage;
 
+    void Start() {
+        state.AddCallback("AttackRate", UpdateStat);
+        state.AddCallback("Damage", UpdateStat);
     }
+
+    #region Server Methods
+
+    public void Init_Server() {
+        if (entity.IsOwner()) {
+            _attackRate = new SKU.Attribute();
+            _damage = new SKU.Attribute();
+
+            _attackRate.AddOnValueChangedListener(UpdateAttackRate_Server);
+            _damage.AddOnValueChangedListener(UpdateDamage_Server);
+
+            _attributeManager = gameObject.AddComponent<AttributeManager>();
+            _attributeManager.Add(StatType.AttackRate, _attackRate);
+            _attributeManager.Add(StatType.Damage, _damage);
+
+            _attackRate.BaseValue = _data.attackRate;
+            _damage.BaseValue = _data.damage;
+        }
+    }
+
+    void UpdateAttackRate_Server(SKU.Attribute attribute) {
+        state.AttackRate = attribute.Value;
+    }
+
+    void UpdateDamage_Server(SKU.Attribute attribute) {
+        state.Damage = attribute.Value;
+    }
+
+    #endregion
 
     public override void Attached() {
         state.SetTransforms(state.Transform, transform);
     }
 
+    void UpdateStat() {
+        UIManager.Instance.GetUITower.UpdateUI(this);
+    }
+
+    // TODO replace by skill
     void Update() {
         if (entity.IsOwner()) {
             GameObject target = GetNearestEnemy();
@@ -23,7 +62,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
             if (target) {
                 _timer -= BoltNetwork.frameDeltaTime;
                 if (_timer <= 0f) {
-                    _timer += _fireRate;
+                    _timer += _attackRate.Value;
                     Shoot(target);
                 }
             } else {

@@ -14,15 +14,22 @@ public class UITower : MonoBehaviour {
 
     public void ShowUI(TowerBehaviour tower) {
         _panel.SetActive(true);
-        if (tower.entity.HasControl()) {
-            _upgradeButton.gameObject.SetActive(true);
-            // add onclick listener
+        UpdateUI(tower);
+    }
 
-        } else {
-            _upgradeButton.gameObject.SetActive(false);
+    public void UpdateUI(TowerBehaviour tower) {
+        if (_panel.activeInHierarchy) {
+            if (tower.entity.HasControl()) {
+                _upgradeButton.gameObject.SetActive(true);
+                // add onclick listener
+
+            } else {
+                _upgradeButton.gameObject.SetActive(false);
+            }
+            //_nameText.text = tower._data.name;
+            _damageText.text = tower.state.Damage.ToString();
+            _speedText.text = tower.state.AttackRate.ToString();
         }
-        _nameText.text = tower._data.name;
-        _damageText.text = tower._data.damage.ToString();
     }
 
     public void HideUI() {
