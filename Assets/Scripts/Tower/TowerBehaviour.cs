@@ -19,6 +19,14 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
         state.AddCallback("Range", UpdateStat);
     }
 
+    public override void Attached() {
+        state.SetTransforms(state.Transform, transform);
+    }
+
+    void UpdateStat() {
+        UIManager.Instance.GetUITower.UpdateUI(this);
+    }
+
     #region Server Methods
 
     public void Init_Server() {
@@ -55,14 +63,6 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
     }
 
     #endregion
-
-    public override void Attached() {
-        state.SetTransforms(state.Transform, transform);
-    }
-
-    void UpdateStat() {
-        UIManager.Instance.GetUITower.UpdateUI(this);
-    }
 
     // TODO replace by skill
     void Update() {
@@ -101,6 +101,8 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
         EntityManager.Instance.SpawnBullet(_data.bulletId, entity.networkId, target.GetComponent<EnemyBehaviour>().entity.networkId, true);
     }
 
+    #region ISelectable
+
     public void Select() {
         UIManager.Instance.GetUITower.ShowUI(this);
     }
@@ -108,4 +110,6 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable {
     public void UnSelect() {
         UIManager.Instance.GetUITower.HideUI();
     }
+
+    #endregion
 }

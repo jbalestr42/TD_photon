@@ -19,6 +19,14 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
         state.AddCallback("Health", UpdateHealth);
     }
 
+    public override void Attached() {
+        state.SetTransforms(state.Transform, transform);
+    }
+
+    void UpdateHealth() {
+        _enemyUI.SetHealthBar(state.Health / state.HealthMax);
+    }
+
     #region Server Methods
 
     public void Init_Server(EnemyData data) {
@@ -42,14 +50,6 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
     }
 
     #endregion
-
-    public override void Attached() {
-        state.SetTransforms(state.Transform, transform);
-    }
-
-    void UpdateHealth() {
-        _enemyUI.SetHealthBar(state.Health / state.HealthMax);
-    }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (entity.IsOwner()) {
