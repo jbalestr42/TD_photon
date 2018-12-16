@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface IAttacker {
     void ApplyOnHitEffect(GameObject target);
+    GameObject GetTarget();
 }
 
 public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IAttacker {
 
     [SerializeField]
     TowerData _data;
-    float _timer = 0f;
 
     AttributeManager _attributeManager;
     SKU.Attribute _attackRate;
@@ -51,6 +49,9 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
             _attackRate.BaseValue = _data.attackRate;
             _damage.BaseValue = _data.damage;
             _range.BaseValue = _data.range;
+
+            // TODO init from data
+           gameObject.AddComponent<ShootBullet>();
         }
     }
 
@@ -66,6 +67,10 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
         state.Range = attribute.Value;
     }
 
+    #endregion
+
+    #region IAttacker
+
     public void ApplyOnHitEffect(GameObject target) {
         var attributes = target.GetComponent<AttributeManager>();
         attributes.Get<SKU.ResourceAttribute>(StatType.Health).Remove(_damage.Value);
@@ -80,26 +85,26 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
         }
     }
 
-    #endregion
-
-    // TODO replace by skill
-    void Update() {
-        if (entity.IsOwner()) {
-            GameObject target = GetNearestEnemy();
-
-            if (target) {
-                _timer -= BoltNetwork.frameDeltaTime;
-                if (_timer <= 0f) {
-                    _timer += _attackRate.Value;
-                    Shoot(target);
-                }
-            } else {
-                _timer = 0f;
-            }
-        }
+    public GameObject GetTarget() {
+        return GetNearestEnemy();
     }
 
+    #endregion
+
+    #region ISelectable
+
+    public void Select() {
+        UIManager.Instance.GetUITower.ShowUI(this);
+    }
+
+    public void UnSelect() {
+        UIManager.Instance.GetUITower.HideUI();
+    }
+
+    #endregion
+
     // TODO abstract strategy pour choisir le bon enemy (plus pret, plus de vie, plus proche de la fin, boss, etc...)
+    // store current target to avoid useless computation
     GameObject GetNearestEnemy() {
         var enemies = EntityManager.Instance.GetEnemies();
 
@@ -115,19 +120,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
         return nearest;
     }
 
-    void Shoot(GameObject target) {
-        EntityManager.Instance.SpawnBullet(_data.bulletId, entity.networkId, target.GetComponent<EnemyBehaviour>().entity.networkId, true);
+    public BulletType GetBulletType() {
+        return _data.bulletId;
     }
-
-    #region ISelectable
-
-    public void Select() {
-        UIManager.Instance.GetUITower.ShowUI(this);
-    }
-
-    public void UnSelect() {
-        UIManager.Instance.GetUITower.HideUI();
-    }
-
-    #endregion
 }
