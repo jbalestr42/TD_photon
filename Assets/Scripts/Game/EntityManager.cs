@@ -51,7 +51,7 @@ public class EntityManager : Singleton<EntityManager> {
         var owner = BoltNetwork.FindEntity(ownerId);
         var target = BoltNetwork.FindEntity(targetId);
         if (owner != null && target != null) {
-            bullet = Factory.Instance.InstantiateBullet(bulletType);
+            bullet = Factory.Instance.CreateBullet(bulletType);
             bullet.GetComponent<BulletBehaviour>().Owner = owner;
             bullet.GetComponent<BulletBehaviour>().Target = target;
             bullet.transform.position = owner.transform.position;

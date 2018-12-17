@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-
-public enum BulletType {
-    Normal = 0,
-    Speed,
-}
-
 public enum ModifierType {
     Time = 0,
     Regen,
@@ -19,11 +13,17 @@ public class Factory : Singleton<Factory> {
 
     public List<GameObject> _bullets;
 
-    public GameObject InstantiateBullet(BulletType id) {
-        Assert.IsNotNull(_bullets);
-        Assert.IsTrue((int)id >= 0 && (int)id < _bullets.Count);
+    DataManager _data;
 
-        var bullet = Instantiate(_bullets[(int)id]);
+    void Start() {
+        _data = DataManager.Instance;
+    }
+
+    public GameObject CreateBullet(BulletType id) {
+        Assert.IsTrue(_data.Bullets.ContainsKey(id));
+
+
+        var bullet = Instantiate(_data.Bullets[id]);
         return bullet;
     }
 
