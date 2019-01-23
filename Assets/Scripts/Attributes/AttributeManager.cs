@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatType {
+public enum AttributeType {
     Health = 0,
     Speed,
     AttackRate,
@@ -12,10 +12,10 @@ public enum StatType {
 
 public class AttributeManager : MonoBehaviour {
 
-    Dictionary<StatType, SKU.IAttribute> _attributes;
+    Dictionary<AttributeType, SKU.IAttribute> _attributes;
 
 	void Awake () {
-        _attributes = new Dictionary<StatType, SKU.IAttribute>();
+        _attributes = new Dictionary<AttributeType, SKU.IAttribute>();
     }
 	
 	void Update () {
@@ -24,31 +24,31 @@ public class AttributeManager : MonoBehaviour {
         }
 	}
 
-    public SKU.IAttribute Add(StatType type, SKU.IAttribute attribute) {
+    public SKU.IAttribute Add(AttributeType type, SKU.IAttribute attribute) {
         if (_attributes.ContainsKey(type)) {
-            Debug.LogError("This StatType already exists in the AttributeManager: " + type);
+            Debug.LogError("This AttributeType already exists in the AttributeManager: " + type);
         }
         _attributes.Add(type, attribute);
         return attribute;
     }
 
-    public SKU.IAttribute Get(StatType type) {
+    public SKU.IAttribute Get(AttributeType type) {
         if (!_attributes.ContainsKey(type)) {
-            Debug.LogError("This StatType doesn't exists in the AttributeManager: " + type);
+            Debug.LogError("This AttributeType doesn't exists in the AttributeManager: " + type);
         }
         return _attributes[type];
     }
 
-    public T Get<T>(StatType type) where T : SKU.IAttribute {
+    public T Get<T>(AttributeType type) where T : SKU.IAttribute {
         if (!_attributes.ContainsKey(type)) {
-            Debug.LogError("This StatType doesn't exists in the AttributeManager: " + type);
+            Debug.LogError("This AttributeType doesn't exists in the AttributeManager: " + type);
         }
         return (T)_attributes[type];
     }
 
-    public float GetValue(StatType type) {
+    public float GetValue(AttributeType type) {
         if (!_attributes.ContainsKey(type)) {
-            Debug.LogError("This StatType doesn't exists in the AttributeManager: " + type);
+            Debug.LogError("This AttributeType doesn't exists in the AttributeManager: " + type);
         }
         return _attributes[type].Value;
     }

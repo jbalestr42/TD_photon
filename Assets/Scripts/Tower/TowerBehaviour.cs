@@ -75,9 +75,9 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
             _range.AddOnValueChangedListener(UpdateRange_Server);
 
             AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
-            attributeManager.Add(StatType.AttackRate, _attackRate);
-            attributeManager.Add(StatType.Damage, _damage);
-            attributeManager.Add(StatType.Range, _range);
+            attributeManager.Add(AttributeType.AttackRate, _attackRate);
+            attributeManager.Add(AttributeType.Damage, _damage);
+            attributeManager.Add(AttributeType.Range, _range);
 
             _attackRate.BaseValue = _data.attackRate;
             _damage.BaseValue = _data.damage;
@@ -106,13 +106,13 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
 
     public void ApplyOnHitEffect(GameObject target) {
         var attributes = target.GetComponent<AttributeManager>();
-        attributes.Get<SKU.ResourceAttribute>(StatType.Health).Remove(_damage.Value);
+        attributes.Get<SKU.ResourceAttribute>(AttributeType.Health).Remove(_damage.Value);
 
         // TODO: clean data for modifiers
         if (_data.modifiers != null) {
             for (int i = 0; i < _data.modifiers.Count; i++) {
                 if (_data.modifiers[i] == ModifierType.Time) {
-                    attributes.Get<SKU.Attribute>(StatType.Speed).AddRelativeModifier(Factory.CreateModifier(ModifierType.Time, 2f, -0.8f));
+                    attributes.Get<SKU.Attribute>(AttributeType.Speed).AddRelativeModifier(Factory.CreateModifier(ModifierType.Time, 2f, -0.8f));
                 }
             }
         }

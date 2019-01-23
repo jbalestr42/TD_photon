@@ -36,7 +36,7 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
             _health.AddOnValueChangedListener(UpdateHealth_Server);
 
             AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
-            attributeManager.Add(StatType.Health, _health);
+            attributeManager.Add(AttributeType.Health, _health);
 
             var movement = gameObject.AddComponent<EnemyMovement>();
             movement.Init_Server(_data.speed);

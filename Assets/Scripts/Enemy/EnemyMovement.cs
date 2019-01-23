@@ -26,6 +26,6 @@ public class EnemyMovement : MonoBehaviour {
 
     public void Init_Server(float speed) {
         _speed = new SKU.Attribute(speed);
-        GetComponent<AttributeManager>().Add(StatType.Speed, _speed);
+        GetComponent<AttributeManager>().Add(AttributeType.Speed, _speed);
     }
 }

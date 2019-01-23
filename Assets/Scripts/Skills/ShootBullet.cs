@@ -7,7 +7,7 @@ public class ShootBullet : ASkill {
     void Start() {
         var requirement = new List<IRequirement>();
         requirement.Add(new ValidTargetReq(gameObject));
-        SKU.Attribute rate = GetComponent<AttributeManager>().Get<SKU.Attribute>(StatType.AttackRate);
+        SKU.Attribute rate = GetComponent<AttributeManager>().Get<SKU.Attribute>(AttributeType.AttackRate);
         base.Init(rate, requirement);
     }
 
