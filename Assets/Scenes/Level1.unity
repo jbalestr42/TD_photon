@@ -913,14 +913,16 @@ MonoBehaviour:
   _waves:
   - {fileID: 11400000, guid: 5c62fd0b991b7b94d8b323d3682e0d5c, type: 2}
   - {fileID: 11400000, guid: 7e022d42077593240a136b3500a9f46f, type: 2}
-  _towers:
-  - {fileID: 11400000, guid: 697b2b8e30be9854eb5466bcda60d4ab, type: 2}
-  - {fileID: 11400000, guid: cb40d3675fa5c754b8132763a3e73640, type: 2}
   _bullets:
     keys: 0100000000000000
     values:
     - {fileID: 1985067714463758, guid: 53b6f547fca7a7a4292e47d9306d4270, type: 2}
     - {fileID: 1985067714463758, guid: 56e4b5d40387f324ba8d3e1a35a510dc, type: 2}
+  _towers:
+    keys: 0200000001000000
+    values:
+    - {fileID: 11400000, guid: cb40d3675fa5c754b8132763a3e73640, type: 2}
+    - {fileID: 11400000, guid: 697b2b8e30be9854eb5466bcda60d4ab, type: 2}
 --- !u!114 &645146369
 MonoBehaviour:
   m_ObjectHideFlags: 0

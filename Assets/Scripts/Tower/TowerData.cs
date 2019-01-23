@@ -5,8 +5,8 @@ using UnityEditor;
 
 public class TowerData : ScriptableObject {
 
-    public GameObject localVisualisation;
-    public Bolt.PrefabId towerId;
+    public GameObject model;
+    public TowerType towerType;
     public BulletType bulletId;
     public float damage;
     public float attackRate;

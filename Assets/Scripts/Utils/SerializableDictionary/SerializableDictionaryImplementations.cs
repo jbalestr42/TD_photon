@@ -19,3 +19,9 @@ public class GameObjectFloatDictionary : SerializableDictionary<GameObject, floa
 // ---------------
 [Serializable]
 public class BulletTypeGameObjectDictionary : SerializableDictionary<BulletType, GameObject> { }
+
+// ---------------
+//  TowerType => TowerData
+// ---------------
+[Serializable]
+public class TowerTypeTowerDataDictionary : SerializableDictionary<TowerType, TowerData> { }

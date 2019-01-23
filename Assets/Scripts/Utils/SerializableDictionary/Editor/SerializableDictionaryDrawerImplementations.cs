@@ -30,11 +30,18 @@ internal class SerializableGameObjectFloatTemplate : SerializableKeyValueTemplat
 [UnityEditor.CustomPropertyDrawer(typeof(BulletTypeGameObjectDictionary))]
 public class BulletTypeGameObjectDictionaryDrawer : SerializableDictionaryDrawer<BulletType, GameObject> {
     protected override SerializableKeyValueTemplate<BulletType, GameObject> GetTemplate() {
-        return GetGenericTemplate<SerializableBulletTypeGameObjecTemplate>();
+        return GetGenericTemplate<SerializableBulletTypeGameObjectTemplate>();
     }
 }
-internal class SerializableBulletTypeGameObjecTemplate : SerializableKeyValueTemplate<BulletType, GameObject> { }
+internal class SerializableBulletTypeGameObjectTemplate : SerializableKeyValueTemplate<BulletType, GameObject> { }
 
 // ---------------
-//  TowerType => GameObject
+//  TowerType => TowerData
 // ---------------
+[UnityEditor.CustomPropertyDrawer(typeof(TowerTypeTowerDataDictionary))]
+public class TowerTypeTowerDataDictionaryDrawer : SerializableDictionaryDrawer<TowerType, TowerData> {
+    protected override SerializableKeyValueTemplate<TowerType, TowerData> GetTemplate() {
+        return GetGenericTemplate<SerializableTowerTypeTowerDataTemplate>();
+    }
+}
+internal class SerializableTowerTypeTowerDataTemplate : SerializableKeyValueTemplate<TowerType, TowerData> { }

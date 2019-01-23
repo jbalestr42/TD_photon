@@ -14,10 +14,10 @@ public class UIInventory : MonoBehaviour {
 
 	void Start () {
         _towerButtons = new List<SelectTowerButton>();
-        var towersData = DataManager.Instance._towers;
+        var towersData = DataManager.Instance.Towers;
 		foreach (var data in towersData) {
             var towerButton = Instantiate(_inventoryTower);
-            towerButton.GetComponent<SelectTowerButton>().Data = data;
+            towerButton.GetComponent<SelectTowerButton>().Data = data.Value;
             towerButton.transform.SetParent(_inventoryConainer.transform);
             _towerButtons.Add(towerButton.GetComponent<SelectTowerButton>());
         }

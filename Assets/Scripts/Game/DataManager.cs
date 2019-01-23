@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public enum BulletType {
     Normal = 0,
     Speed,
 }
 
+public enum TowerType {
+    None = 0,
+    Normal,
+    Slow
+}
+
 public class DataManager : Singleton<DataManager> {
 
     public List<WaveData> _waves = null;
-    public List<TowerData> _towers = null;
-
 
     [SerializeField]
     private BulletTypeGameObjectDictionary _bullets = BulletTypeGameObjectDictionary.New<BulletTypeGameObjectDictionary>();
@@ -19,15 +24,14 @@ public class DataManager : Singleton<DataManager> {
         get { return _bullets.dictionary; }
     }
 
-    public int GetTowerCost(Bolt.PrefabId towerId) {
-        for (int i = 0; i < _towers.Count; i++) {
-            if (_towers[i].towerId == towerId) {
-                return _towers[i].cost;
-            }
-        }
-        Debug.Log("This tower is not registered in the list: " + towerId);
-        return 0;
+    [SerializeField]
+    private TowerTypeTowerDataDictionary _towers = TowerTypeTowerDataDictionary.New<TowerTypeTowerDataDictionary>();
+    public Dictionary<TowerType, TowerData> Towers {
+        get { return _towers.dictionary; }
     }
 
-
+    public TowerData GetTowerData(TowerType type) {
+        Assert.IsTrue(Towers.ContainsKey(type), "This tower is not registered in the list: " + type);
+        return Towers[type];
+    }
 }

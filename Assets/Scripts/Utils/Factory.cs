@@ -22,7 +22,6 @@ public class Factory : Singleton<Factory> {
     public GameObject CreateBullet(BulletType id) {
         Assert.IsTrue(_data.Bullets.ContainsKey(id));
 
-
         var bullet = Instantiate(_data.Bullets[id]);
         return bullet;
     }

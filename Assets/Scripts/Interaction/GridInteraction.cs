@@ -9,7 +9,7 @@ public class GridInteraction : AInteraction {
 
     public GridInteraction(TowerData data) {
         _data = data;
-        _tower = GameObject.Instantiate(_data.localVisualisation);
+        _tower = GameObject.Instantiate(_data.model);
     }
 
     public override int GetLayer() {
@@ -18,7 +18,7 @@ public class GridInteraction : AInteraction {
 
     public override void OnMouseClick(Vector3 position) {
         var evnt = SpawnEvent.Create();
-        evnt.PrefabId = _data.towerId;
+        evnt.TowerType = (int)_data.towerType;
         evnt.Position = position;
         evnt.Send();
         InteractionManager.Instance.EndInteraction();

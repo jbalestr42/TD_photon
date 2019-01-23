@@ -5,34 +5,67 @@ public interface IAttacker {
     GameObject GetTarget();
 }
 
+/*
+ * Init order
+ * Initialized
+ * Attached
+ * Init Server
+ * Start
+ * */
 public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IAttacker {
 
-    [SerializeField]
     TowerData _data;
 
-    AttributeManager _attributeManager;
     SKU.Attribute _attackRate;
     SKU.Attribute _damage;
     SKU.Attribute _range;
 
+    GameObject _model = null;
+
     void Start() {
+        Debug.Log("START");
+    }
+
+    public override void Initialized() {
         state.AddCallback("AttackRate", UpdateStat);
         state.AddCallback("Damage", UpdateStat);
         state.AddCallback("Range", UpdateStat);
+        state.AddCallback("TowerType", UpdateModel);
+        Debug.Log("INIT");
     }
 
     public override void Attached() {
         state.SetTransforms(state.Transform, transform);
+        Debug.Log("ATTACHED");
     }
 
     void UpdateStat() {
         UIManager.Instance.GetUITower.UpdateUI(this);
     }
 
+    void UpdateModel() {
+        // Data are set for all clients
+        _data = DataManager.Instance.GetTowerData((TowerType)state.TowerType);
+        Debug.Log("MODEL : " + _model + " - " + state.TowerType);
+        if (_model) {
+            Destroy(_model);
+            Debug.Log("DESTROY");
+        }
+        if (_data && _data.model) {
+            _model = Instantiate(_data.model);
+            _model.transform.SetParent(transform, false);
+            Debug.Log("CREATE");
+        }
+    }
+
     #region Server Methods
 
-    public void Init_Server() {
+    public void Init_Server(TowerData data) {
+        Debug.Log("INIT SERVER");
         if (entity.IsOwner()) {
+            _data = data;
+            state.TowerType = (int)_data.towerType;
+
             _attackRate = new SKU.Attribute();
             _damage = new SKU.Attribute();
             _range = new SKU.Attribute();
@@ -41,17 +74,17 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
             _damage.AddOnValueChangedListener(UpdateDamage_Server);
             _range.AddOnValueChangedListener(UpdateRange_Server);
 
-            _attributeManager = gameObject.AddComponent<AttributeManager>();
-            _attributeManager.Add(StatType.AttackRate, _attackRate);
-            _attributeManager.Add(StatType.Damage, _damage);
-            _attributeManager.Add(StatType.Range, _range);
+            AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
+            attributeManager.Add(StatType.AttackRate, _attackRate);
+            attributeManager.Add(StatType.Damage, _damage);
+            attributeManager.Add(StatType.Range, _range);
 
             _attackRate.BaseValue = _data.attackRate;
             _damage.BaseValue = _data.damage;
             _range.BaseValue = _data.range;
 
             // TODO init from data
-           gameObject.AddComponent<ShootBullet>();
+            gameObject.AddComponent<ShootBullet>();
         }
     }
 

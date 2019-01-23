@@ -12,7 +12,6 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
     UIEnemy _enemyUI;
     EnemyData _data;
     SKU.ResourceAttribute _health = null;
-    AttributeManager _attributeManager;
 
     void Start() {
         _enemyUI = GetComponentInChildren<UIEnemy>();
@@ -36,8 +35,8 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
             _health = new SKU.ResourceAttribute(_data.health, _data.health, 1, 0.5f);
             _health.AddOnValueChangedListener(UpdateHealth_Server);
 
-            _attributeManager = gameObject.AddComponent<AttributeManager>();
-            _attributeManager.Add(StatType.Health, _health);
+            AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
+            attributeManager.Add(StatType.Health, _health);
 
             var movement = gameObject.AddComponent<EnemyMovement>();
             movement.Init_Server(_data.speed);

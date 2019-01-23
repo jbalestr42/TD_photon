@@ -54,7 +54,7 @@ public class ServerCallbacks : Bolt.GlobalEventListener {
 
     public override void OnEvent(SpawnEvent evnt) {
         var player = PlayerObjectRegistry.GetPlayer(evnt.RaisedBy);
-        EntityManager.Instance.SpawnTower(evnt.PrefabId, player, evnt.Position);
+        EntityManager.Instance.SpawnTower((TowerType)evnt.TowerType, player, evnt.Position);
     }
 
     public override void OnEvent(IsReadyEvent evnt) {

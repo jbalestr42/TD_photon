@@ -78,13 +78,14 @@ public class EntityManager : Singleton<EntityManager> {
 
     #region Towers
 
-    public GameObject SpawnTower(Bolt.PrefabId towerId, PlayerObject player, Vector3 position) {
-        int cost = DataManager.Instance.GetTowerCost(towerId);
-        if (player.behavior.state.Gold >= cost) {
-            var tower = BoltNetwork.Instantiate(towerId);
-            tower.GetComponent<TowerBehaviour>().Init_Server();
+    public GameObject SpawnTower(TowerType towerType, PlayerObject player, Vector3 position) {
+        TowerData data = DataManager.Instance.GetTowerData(towerType);
 
-            player.behavior.state.Gold -= cost;
+        if (player.behavior.state.Gold >= data.cost) {
+            var tower = BoltNetwork.Instantiate(BoltPrefabs.BaseTower);
+            tower.GetComponent<TowerBehaviour>().Init_Server(data);
+
+            player.behavior.state.Gold -= data.cost;
             tower.transform.position = position;
             SetControl(player, tower);
             _towers.Add(tower);
