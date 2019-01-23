@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIEnemy : MonoBehaviour {
+public class UIEnemyHUD : MonoBehaviour {
 
     public UnityEngine.UI.Text _name;
     public UnityEngine.UI.Image _health;

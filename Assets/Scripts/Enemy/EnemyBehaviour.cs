@@ -9,12 +9,12 @@ using UnityEngine;
  * */
 public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
-    UIEnemy _enemyUI;
+    UIEnemyHUD _enemyUI;
     EnemyData _data;
     SKU.ResourceAttribute _health = null;
 
     void Start() {
-        _enemyUI = GetComponentInChildren<UIEnemy>();
+        _enemyUI = GetComponentInChildren<UIEnemyHUD>();
         state.AddCallback("Health", UpdateHealth);
     }
 

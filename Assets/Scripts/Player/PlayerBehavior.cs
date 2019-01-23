@@ -10,7 +10,7 @@ using UnityEngine;
  * */
 public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
 
-    UIPlayer _playerUI;
+    UIPlayerHUD _playerUI;
     Renderer _renderer;
 
     void Start() {
@@ -24,7 +24,7 @@ public class PlayerBehavior : Bolt.EntityBehaviour<IPlayerState> {
 
     public override void Attached() {
         _renderer = GetComponentInChildren<Renderer>();
-        _playerUI = GetComponentInChildren<UIPlayer>();
+        _playerUI = GetComponentInChildren<UIPlayerHUD>();
 
         state.AddCallback("Color", () => { _renderer.material.color = state.Color; });
         state.AddCallback("Name", () => { _playerUI.SetPlayerName(state.Name); });

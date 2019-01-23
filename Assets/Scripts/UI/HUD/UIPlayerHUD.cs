@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIPlayer : MonoBehaviour {
+public class UIPlayerHUD : MonoBehaviour {
 
     public UnityEngine.UI.Text _name;
 
