@@ -7,7 +7,7 @@ using UnityEngine;
  * Init_Server
  * Start
  * */
-public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
+public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ISelectable, ITargetable {
 
     UIEnemyHUD _enemyUI;
     EnemyData _data;
@@ -24,6 +24,11 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     void UpdateHealth() {
         _enemyUI.SetHealthBar(state.Health / state.HealthMax);
+        UIManager.Instance.UpdatePanel(PanelType.Enemy, this);
+    }
+
+    void OnDestroy() {
+        UIManager.Instance.HidePanel(PanelType.Enemy);
     }
 
     #region Server Methods
@@ -50,14 +55,19 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
 
     #endregion
 
-    void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (entity.IsOwner()) {
-            if (hit.gameObject.tag == "SpawnEnd") {
-                EntityManager.Instance.DestroyEnemy(entity.gameObject);
-                GameManager.Instance.LooseLife(_data.lifeCost);
-            }
-        }
+    #region ISelectable
+
+    public void Select() {
+        UIManager.Instance.ShowPanel(PanelType.Enemy, this);
     }
+
+    public void UnSelect() {
+        UIManager.Instance.HidePanel(PanelType.Enemy);
+    }
+
+    #endregion
+
+    #region ITargetable
 
     public void OnHit(GameObject emitter) {
         if (entity.IsOwner()) {
@@ -78,5 +88,16 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ITargetable {
         var player = PlayerObjectRegistry.GetPlayer(killer.GetComponent<TowerBehaviour>().entity.controller);
         player.behavior.state.Score += _data.score;
         player.behavior.state.Gold += _data.gold;
+    }
+
+    #endregion
+
+    void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (entity.IsOwner()) {
+            if (hit.gameObject.tag == "SpawnEnd") {
+                EntityManager.Instance.DestroyEnemy(entity.gameObject);
+                GameManager.Instance.LooseLife(_data.lifeCost);
+            }
+        }
     }
 }

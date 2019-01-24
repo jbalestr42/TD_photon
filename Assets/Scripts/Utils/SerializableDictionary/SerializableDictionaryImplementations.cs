@@ -25,3 +25,9 @@ public class BulletTypeGameObjectDictionary : SerializableDictionary<BulletType,
 // ---------------
 [Serializable]
 public class TowerTypeTowerDataDictionary : SerializableDictionary<TowerType, TowerData> { }
+
+// ---------------
+//  UIType => APanel
+// ---------------
+[Serializable]
+public class PanelTypeAPanelDictionary : SerializableDictionary<PanelType, APanel> { }

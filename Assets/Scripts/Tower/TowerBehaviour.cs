@@ -40,7 +40,7 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
     }
 
     void UpdateStat() {
-        UIManager.Instance.GetUITower.UpdateUI(this);
+        UIManager.Instance.UpdatePanel(PanelType.Tower, this);
     }
 
     void UpdateModel() {
@@ -127,11 +127,11 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
     #region ISelectable
 
     public void Select() {
-        UIManager.Instance.GetUITower.ShowUI(this);
+        UIManager.Instance.ShowPanel(PanelType.Tower, this);
     }
 
     public void UnSelect() {
-        UIManager.Instance.GetUITower.HideUI();
+        UIManager.Instance.HidePanel(PanelType.Tower);
     }
 
     #endregion

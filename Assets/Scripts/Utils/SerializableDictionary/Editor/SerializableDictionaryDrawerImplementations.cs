@@ -45,3 +45,14 @@ public class TowerTypeTowerDataDictionaryDrawer : SerializableDictionaryDrawer<T
     }
 }
 internal class SerializableTowerTypeTowerDataTemplate : SerializableKeyValueTemplate<TowerType, TowerData> { }
+
+// ---------------
+//  PanelType => APanel
+// ---------------
+[UnityEditor.CustomPropertyDrawer(typeof(PanelTypeAPanelDictionary))]
+public class PanelTypeAPanelDictionaryDrawer : SerializableDictionaryDrawer<PanelType, APanel> {
+    protected override SerializableKeyValueTemplate<PanelType, APanel> GetTemplate() {
+        return GetGenericTemplate<SerializablePanelTypeAPanelTemplate>();
+    }
+}
+internal class SerializablePanelTypeAPanelTemplate : SerializableKeyValueTemplate<PanelType, APanel> { }

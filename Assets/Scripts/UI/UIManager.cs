@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PanelType {
+    None,
+    Tower,
+    Enemy,
+}
+
 public class UIManager : Singleton<UIManager> {
 
     public UnityEngine.UI.Button _isReadyButton;
@@ -11,8 +17,17 @@ public class UIManager : Singleton<UIManager> {
     public UnityEngine.UI.Text _scoreText;
     public UnityEngine.UI.Text _lifeText;
 
-    public UITower _uiTower;
+    public PanelTower _uiTower;
     public UIInventory _uiInventory;
+
+    PanelType _selectedPanel = PanelType.None;
+    MonoBehaviour _selectedMono = null;
+
+    [SerializeField]
+    private PanelTypeAPanelDictionary _panels = PanelTypeAPanelDictionary.New<PanelTypeAPanelDictionary>();
+    private Dictionary<PanelType, APanel> Panels {
+        get { return _panels.dictionary; }
+    }
 
     void Awake() {
         _isReadyButton.onClick.AddListener(IsReady_OnClick);
@@ -25,12 +40,32 @@ public class UIManager : Singleton<UIManager> {
 
     #region Accessor to other UI systems
 
-    public UITower GetUITower {
-        get { return _uiTower; }
-    }
-
     public UIInventory GetUIInventory {
         get { return _uiInventory; }
+    }
+
+    public void ShowPanel(PanelType type, MonoBehaviour target) {
+        if (_selectedPanel != type && type != PanelType.None) {
+            if (_selectedPanel != PanelType.None) {
+                Panels[_selectedPanel].HideUI();
+            }
+            _selectedPanel = type;
+            _selectedMono = target;
+            Panels[type].ShowUI(target);
+        }
+    }
+
+    public void UpdatePanel(PanelType type, MonoBehaviour target) {
+        if (type != PanelType.None && Panels[type].IsActive() && _selectedMono == target) {
+            Panels[type].UpdateUI(target);
+        }
+    }
+
+    public void HidePanel(PanelType type) {
+        if (type != PanelType.None) {
+            Panels[type].HideUI();
+            _selectedPanel = PanelType.None;
+        }
     }
 
     #endregion
