@@ -70,8 +70,8 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ISelectable, IT
     #region ITargetable
 
     public void OnHit(GameObject emitter) {
-        if (entity.IsOwner()) {
-
+        if (entity.IsOwner())
+        {
             var attacker = emitter.GetComponent<IAttacker>();
             if (attacker != null) {
                 attacker.ApplyOnHitEffect(gameObject);
@@ -92,9 +92,10 @@ public class EnemyBehaviour : Bolt.EntityBehaviour<IEnemyState>, ISelectable, IT
 
     #endregion
 
-    void OnControllerColliderHit(ControllerColliderHit hit) {
+    void OnCollisionEnter(Collision collision)
+    {
         if (entity.IsOwner()) {
-            if (hit.gameObject.tag == "SpawnEnd") {
+            if (collision.gameObject.tag == "SpawnEnd") {
                 EntityManager.Instance.DestroyEnemy(entity.gameObject);
                 GameManager.Instance.LooseLife(_data.lifeCost);
             }

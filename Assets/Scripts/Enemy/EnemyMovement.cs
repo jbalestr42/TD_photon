@@ -1,31 +1,40 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyMovement : MonoBehaviour {
 
     Transform _start;
     Transform _end;
-    CharacterController _cc;
 
     SKU.Attribute _speed = null;
+    AIPath aiPath = null;
 
     void Awake() {
         // TODO Spawn Manager
         _start = GameObject.FindWithTag("SpawnStart").transform;
         _end = GameObject.FindWithTag("SpawnEnd").transform;
-        _cc = GetComponent<CharacterController>();
         transform.position = _start.position;
     }
 
     void Update() {
-        var direction = _end.position - _start.position;
-        direction.y += -9.81f;
-        _cc.Move(direction.normalized * _speed.Value * BoltNetwork.frameDeltaTime);
-	}
+        if (aiPath != null) {
+            aiPath.maxSpeed = _speed.Value;
+        }
+    }
 
     public void Init_Server(float speed) {
         _speed = new SKU.Attribute(speed);
         GetComponent<AttributeManager>().Add(AttributeType.Speed, _speed);
+
+        aiPath = gameObject.AddComponent<AIPath>();
+        AIDestinationSetter destination = gameObject.AddComponent<AIDestinationSetter>();
+        destination.target = _end;
+
+        RaycastModifier modifier = gameObject.AddComponent<RaycastModifier>();
+        modifier.thickRaycast = true;
+        modifier.thickRaycastRadius = 0.5f;
     }
 }

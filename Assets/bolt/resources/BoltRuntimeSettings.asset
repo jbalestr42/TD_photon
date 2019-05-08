@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -46,7 +47,7 @@ MonoBehaviour:
   debugClientCount: 1
   debugStartPort: 50538
   debugStartMapName: Level1
-  debugPlayAsServer: 1
+  debugPlayAsServer: 0
   showDebugInfo: 1
   overrideTimeScale: 1
   logUncaughtExceptions: 0

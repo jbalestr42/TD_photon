@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SpawnStart
   - SpawnEnd
+  - EnemyMesh
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Bullet
   - Enemy
   - End
-  - 
-  - 
+  - Start
+  - Obstacle
   - 
   - 
   - 
