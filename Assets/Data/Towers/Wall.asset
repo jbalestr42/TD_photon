@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8673efcc341a42842a027d52ee3c2d10, type: 3}
-  m_Name: SlowTower
+  m_Name: Wall
   m_EditorClassIdentifier: 
-  model: {fileID: 1631280189745936, guid: 68539cebf28b3e74d85b42728ea06f38, type: 3}
-  towerType: 2
+  model: {fileID: 1081930672269232, guid: 4a715dd28f7b12542af7e7a5a1d9fb47, type: 3}
+  towerType: 3
   bulletId: 0
-  damage: 15
-  attackRate: 5
-  range: 500
-  text: Slow tower
-  cost: 25
-  modifiers: 00000000
-  canAttack: 1
+  damage: 0
+  attackRate: 1
+  range: 0
+  text: Wall
+  cost: 5
+  modifiers: 
+  canAttack: 0

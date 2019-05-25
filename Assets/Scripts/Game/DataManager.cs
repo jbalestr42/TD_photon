@@ -11,7 +11,8 @@ public enum BulletType {
 public enum TowerType {
     None = 0,
     Normal,
-    Slow
+    Slow,
+    Wall
 }
 
 public class DataManager : Singleton<DataManager> {

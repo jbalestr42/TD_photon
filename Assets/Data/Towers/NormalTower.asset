@@ -4,19 +4,21 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8673efcc341a42842a027d52ee3c2d10, type: 3}
   m_Name: NormalTower
   m_EditorClassIdentifier: 
-  model: {fileID: 1081930672269232, guid: bd76208553fe7ae41aa9aab2409639fa, type: 2}
+  model: {fileID: 1081930672269232, guid: bd76208553fe7ae41aa9aab2409639fa, type: 3}
   towerType: 1
   bulletId: 1
   damage: 10
   attackRate: 3
   range: 1000
-  name: bla
+  text: Normal tower
   cost: 10
   modifiers: 
+  canAttack: 1

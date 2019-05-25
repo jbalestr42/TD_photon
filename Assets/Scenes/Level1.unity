@@ -2356,10 +2356,11 @@ MonoBehaviour:
     - {fileID: 1985067714463758, guid: 53b6f547fca7a7a4292e47d9306d4270, type: 3}
     - {fileID: 1985067714463758, guid: 56e4b5d40387f324ba8d3e1a35a510dc, type: 3}
   _towers:
-    keys: 0200000001000000
+    keys: 020000000100000003000000
     values:
     - {fileID: 11400000, guid: cb40d3675fa5c754b8132763a3e73640, type: 2}
     - {fileID: 11400000, guid: 697b2b8e30be9854eb5466bcda60d4ab, type: 2}
+    - {fileID: 11400000, guid: 64463aa6c333a35478841f8c77186828, type: 2}
 --- !u!114 &645146369
 MonoBehaviour:
   m_ObjectHideFlags: 0

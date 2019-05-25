@@ -66,25 +66,28 @@ public class TowerBehaviour : Bolt.EntityBehaviour<ITowerState>, ISelectable, IA
             _data = data;
             state.TowerType = (int)_data.towerType;
 
-            _attackRate = new SKU.Attribute();
-            _damage = new SKU.Attribute();
-            _range = new SKU.Attribute();
+            if (data.canAttack)
+            {
+                _attackRate = new SKU.Attribute();
+                _damage = new SKU.Attribute();
+                _range = new SKU.Attribute();
 
-            _attackRate.AddOnValueChangedListener(UpdateAttackRate_Server);
-            _damage.AddOnValueChangedListener(UpdateDamage_Server);
-            _range.AddOnValueChangedListener(UpdateRange_Server);
+                _attackRate.AddOnValueChangedListener(UpdateAttackRate_Server);
+                _damage.AddOnValueChangedListener(UpdateDamage_Server);
+                _range.AddOnValueChangedListener(UpdateRange_Server);
 
-            AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
-            attributeManager.Add(AttributeType.AttackRate, _attackRate);
-            attributeManager.Add(AttributeType.Damage, _damage);
-            attributeManager.Add(AttributeType.Range, _range);
+                AttributeManager attributeManager = gameObject.AddComponent<AttributeManager>();
+                attributeManager.Add(AttributeType.AttackRate, _attackRate);
+                attributeManager.Add(AttributeType.Damage, _damage);
+                attributeManager.Add(AttributeType.Range, _range);
 
-            _attackRate.BaseValue = _data.attackRate;
-            _damage.BaseValue = _data.damage;
-            _range.BaseValue = _data.range;
+                _attackRate.BaseValue = _data.attackRate;
+                _damage.BaseValue = _data.damage;
+                _range.BaseValue = _data.range;
 
-            // TODO init from data
-            gameObject.AddComponent<ShootBullet>();
+                // TODO init from data
+                gameObject.AddComponent<ShootBullet>();
+            }
         }
     }
 

@@ -18,6 +18,7 @@ public class UIInventory : MonoBehaviour {
 		foreach (var data in towersData) {
             var towerButton = Instantiate(_inventoryTower);
             towerButton.GetComponent<SelectTowerButton>().Data = data.Value;
+            towerButton.GetComponentInChildren<UnityEngine.UI.Text>().text = data.Value.text;
             towerButton.transform.SetParent(_inventoryConainer.transform);
             _towerButtons.Add(towerButton.GetComponent<SelectTowerButton>());
         }
