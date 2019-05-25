@@ -639,9 +639,9 @@ MonoBehaviour:
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneGuid: cc85f0f6-f6e2-424c-8d6b-6ce904ffd28c
+  _sceneGuid: 
   _serializerGuid: 098e04b3-3987-4f82-a638-b21264966155
-  _prefabId: 0
+  _prefabId: 1
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1

@@ -81,15 +81,25 @@ public class EntityManager : Singleton<EntityManager> {
     public GameObject SpawnTower(TowerType towerType, PlayerObject player, Vector3 position) {
         TowerData data = DataManager.Instance.GetTowerData(towerType);
 
-        if (player.behavior.state.Gold >= data.cost) {
+        Vector2Int coord = GridManager.Instance.GetCoordFromPosition(position);
+        if (GridManager.Instance.IsEmpty(coord.x, coord.y) && player.behavior.state.Gold >= data.cost)
+        {
             var tower = BoltNetwork.Instantiate(BoltPrefabs.BaseTower);
-            tower.GetComponent<TowerBehaviour>().Init_Server(data);
-
-            player.behavior.state.Gold -= data.cost;
             tower.transform.position = position;
-            SetControl(player, tower);
-            _towers.Add(tower);
-            return tower;
+
+            if (GridManager.Instance.CanPlaceObject(tower))
+            {
+                GridManager.Instance.SetEmpty(coord.x, coord.y, false);
+                player.behavior.state.Gold -= data.cost;
+                SetControl(player, tower);
+                _towers.Add(tower);
+                tower.GetComponent<TowerBehaviour>().Init_Server(data);
+                return tower;
+            }
+            else
+            {
+                BoltNetwork.Destroy(tower);
+            }
         }
         return null;
     }

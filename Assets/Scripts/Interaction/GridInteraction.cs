@@ -19,14 +19,14 @@ public class GridInteraction : AInteraction {
     public override void OnMouseClick(Vector3 position) {
         var evnt = SpawnEvent.Create();
         evnt.TowerType = (int)_data.towerType;
-        evnt.Position = position;
+        evnt.Position = GridManager.Instance.GetCellCenterFromPosition(position);
         evnt.Send();
         InteractionManager.Instance.EndInteraction();
     }
 
     public override void OnMouseOver(Vector3 position) {
         if (_tower) {
-            _tower.transform.position = position;
+            _tower.transform.position = GridManager.Instance.GetCellCenterFromPosition(position);
         }
     }
 
